@@ -1,0 +1,194 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: #f5f5f5;
+	color: #222;
+	font-size: 14pt;
+	font-family: 'Fira Sans', Tahoma, sans-serif;
+}
+
+p {
+	font-weight: 300;
+}
+
+.container {
+	position: relative;
+	display: block;
+	min-height: 720px;
+	width: 880px;
+	margin: 40px auto;
+	z-index: 20;
+	padding: 20px;
+	background: none;
+	color: #222;
+}
+
+.editor {
+	display: inline-block;
+	float: left;
+	font-family: monospace;
+	background: #222;
+	color: #f5f5f5;
+	border: none;
+	max-width: 50%;
+	width: 50%;
+	height: 700px;
+	padding: 10px;
+	border-right: 2px solid #444;
+}
+
+.editor:nth-child(2) {
+	border-right: none;
+}
+
+.btn {
+	display: block;
+	cursor: pointer;
+	border: none;
+	width: 100%;
+	padding: 15px;
+	background: #999;
+	font-family: 'Fira Sans', sans-serif;
+	color: #fff;
+	background: #3498db;
+}
+.btn:focus {
+	outline: none;
+}
+
+.btn:hover {
+	background: #3cb0fd;
+}
+
+.editor:focus {
+	outline: none;
+}
+
+article {
+	margin-bottom: 20px;
+	text-align: justify;
+	padding: 10px;
+}
+
+.project {
+	display: block;
+	padding: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Lora', 'Fira Sans', sans-serif;
+	text-transform: uppercase;
+}
+
+.project-title {
+	font-family: 'MedievalSharp', 'Lora', sans-serif;
+	text-transform: uppercase;
+}
+
+a {
+	text-decoration: none;
+	color: #4078c0;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #4078c0;
+}
+
+#foobar {
+	position: absolute;
+	top: 0;
+	z-index: 10;
+	image-rendering: optimizeSpeed;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
+.project img,
+.project video {
+	display: block;
+	padding: 5px;
+	max-width: 100%;
+}
+
+.project .img-caption {
+	font-style: italic;
+	font-size: 12pt;
+	padding: 5px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.desc {
+	color: #666;
+	font-size: 12pt;
+}
+
+.title {
+	text-align: center;
+	text-transform: capitalize;
+	font-size: 64pt;
+	font-weight: 400;
+}
+
+.full-page {
+	display: table; 
+	height: 100vh; 
+	width: 100%;
+	overflow: hidden;
+	z-index: 100;
+	background: #ddd;
+}
+
+.me {
+	display: table-cell; 
+	vertical-align: middle;
+	text-align: center;
+}
+
+.row {
+	display: inline-block;
+	width: 100%;
+}
+
+.col-half {
+	display: block;
+	width: 50%;
+	float: left;
+}
+
+ul {
+	margin: 5px 20px;
+}
+
+header {
+	margin-bottom: 40px;
+}
+
+.navigation {
+	display: block;
+	text-align: center;
+}
+
+.navigation ul {
+	display: inline-block;
+	list-style: none;
+}
+
+.navigation ul li {
+	display: inline-block;
+	float: left;
+	padding: 4px 8px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: 'Lora';
+}

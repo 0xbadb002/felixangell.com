@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>felixangell.com</title>
+		<link href='//fonts.googleapis.com/css?family=Fira+Sans:400,300,500,700' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=Lora:400' rel='stylesheet' type='text/css'>
+		<link type="text/css" rel="stylesheet" href="css/main.css">
+		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link href='fonts.googleapis.com/css?family=MedievalSharp' rel='stylesheet' type='text/css'>
+	</head>
+
+	<body>
+		<div class="full-page">
+			<div class="me">
+				<h1 class="title">felix angell</h1>
+				<nav class="navigation">
+					<ul>
+						<li><a href="//blog.felixangell.com">Blog</a></li>
+						<li><a href="//github.com/0xbadb002">GitHub</a></li>
+						<li><a href="//twitter.com/0xbadb002">Twitter</a></li>
+					</ul>
+				</nav>
+				<div class="arrow">
+					<a href="#about"><i class="fa fa-arrow-down"></i></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-half">
+					<section id="about">
+						<article>
+							<h2 class="section-title">About</h2>
+							<p>
+								My name is Felix, I'm a <span id="my-age">101101010101010</span> year old student from Brighton in the United Kingdom. I study
+								Software Development, Design, and Media at Sussex Downs College.
+							</p>
+						</article>
+					</section>
+				</div>
+
+				<div class="col-half">
+					<section id="contact">
+						<article>
+							<h2 class="section-title">Contact</h2>
+							<p>
+								Want to contact me? You can email me at 0xbadb002&commat;gmail&period;com, or you can somehow get
+								hold of me through my <a href="//github.com/0xbadb002">GitHub</a>.
+							</p>
+						</article>
+					</section>
+				</div>
+			</div>
+
+			<section id="projects">
+				<article>
+					<h2 class="section-title">Projects</h2>
+					<p>
+						These are the projects I've had the most fun working on, most of them
+						are open-source, some no longer exist, and some aren't feature-full. I have
+						a few other projects I don't mention here you can check out on <a href="//github.com/0xbadb002">
+						my GitHub</a>.
+					</p>
+				</article>
+				
+				<!-- left column -->
+				<div class="col-half">
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/ark-lang/ark">Ark</a> <span class="desc">Go</span></h3>
+						<div class="project-cover">
+							<img src="img/ark.gif">
+							<p class="img-caption">
+								Back when Ark generated C code, this is a test binding to SDL
+								and rendering a 3d cube that rotates.
+							</p>
+						</div>
+						<p>
+							Ark is a compiled programming language written in Go, it uses
+							the LLVM framework (i.e. it compiles to LLVM IR). It's the side-project
+							I've spent the most time working on. The compiler is mostly hand-written,
+							and is being worked on by a team of five people (including myself). As
+							well as designing and implementing the language, I also wrote the <a href="//ark-lang.org">
+							website</a> and the language <a href="//book.ark-lang.org">reference</a>.
+						</p>
+					</article>
+
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/0xbadb002/root-framework">Root</a> <span class="desc">Java</span></h3>
+						<div class="project-cover">
+							<img src="img/root.gif">
+							<p class="img-caption">
+								A quick example game I scratched up using Root.
+							</p>
+						</div>
+						<p>
+							Root is a simple game framework, it uses LWJGL for OpenGL bindings. It follows
+							modern rendering techniques (sprite batching, the use of shaders, etc.) The
+							framework was mostly inspired by LibGDX and (the defunct) Slick2D, I wrote it
+							as a more compact/minimal alternative to LibGDX that similarly uses modern
+							rendering techniques, though it conforms to the simplicity that I loved about
+							Slick2D.
+						</p>
+					</article>              
+									
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/0xbadb002/rast">rast</a> <span class="desc">Java</span></h3>
+						<div class="project-cover">
+							<img src="img/rast.png">
+							<p class="img-caption">
+								A test rast application that can render simple 
+								geometric shapes, and can also render images.
+							</p>
+						</div>
+						<p>
+							I wanted to learn more about how graphics are rendered, so I wrote
+							a simple software rasterizer in Java that is completely software accelerated, i.e.
+							it doesn't make use of the GPU for rendering graphics. It's very primitive, and
+							can only render basic geometric shapes, and plot pixels, with some modification
+							it could also render images - though the current set of tools it provides is more
+							than enough to render simple graphics.
+						</p>
+					</article>
+				</div>
+
+				<!-- right column -->
+				<div class="col-half">
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/0xbadb002/mac">mac</a> <span class="desc">C</span></h3>
+						<p>
+							I wrote this for a blog series on how to write a simple virtual machine in C, which you can read <a href="blog.felixangell.com/virtual-machine-in-c/">here</a>. Writing about programming, and teaching things
+							to people is another thing I enjoy doing.
+							The repository contains two versions, the first being a simplified version with very few instructions,
+							and a more advanced version that can load programs from files and has more instructions e.g. 
+							basic flow control. The virtual machine itself is not complete, and is more for educational purposes.
+						</p>
+					</article>
+
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/0xbadb002/llm">LLM</a> <span class="desc">C++</span></h3>
+						<div class="project-cover">
+							<img src="img/llm.png">
+							<p class="img-caption">
+								In the text-editor is LLM markdown, on the right
+								(in the browser) is the rendered result.
+							</p>
+						</div>
+						<p>
+							LLM is a small side-project that implements a simple markup language
+							in C++ using the FastCGI protocol to pipe HTML straight to the web server. It
+							uses a lisp-y syntax, and is relatively fast.
+						</p>
+					</article>	
+
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/ark-lang/arkade">arkade</a> <span class="desc">C</span></h3>
+						<p>
+							A package manager that uses GitHub as its core platform. Arkade was mostly inspired by
+							the Cargo package manager (for Rust) and Go's built-in package manager. It is written in C,
+							and includes a hand-written TOML parser (written by yours truly). Currently it only supports
+							GitHub for projects, projects created with Arkade are pushed to GitHub, it fetches dependencies
+							from GitHub, and uses git tags for versioning dependencies and the package itself.
+						</p>
+					</article>
+
+					<article class="project">
+						<h3 class="project-title"><a href="//github.com/0xbadb002/odb">odb</a> <span class="desc">C</span></h3>
+						<div class="project-cover">
+							<video src="img/odb.webm" autoplay controls></video>
+							<p class="img-caption">
+								ODB is a simple shell implemented in the
+								C programming language
+							</p>
+						</div>
+						<p>
+							I spontaneously wrote ODB with a friend in a few days as a
+							small project for us to both work on. We were both interested
+							in implementing a shell, and wanted to see how much work it
+							would take to get a simple shell functioning, as well as try implement
+							some trickier features like auto-completion, and tab completion.
+						</p>
+					</article>
+				</div>
+			</section>
+		</div>
+	</body>
+
+	<script>
+	// calculates birthday based on epoch
+	// @param birthday birthday as Date()
+	function calculate_age(birthday) {
+		var age_dif_msg = Date.now() - birthday.getTime();
+		var age_date = new Date(age_dif_msg);
+		return Math.abs(age_date.getUTCFullYear() - 1970);
+	}
+
+	document.getElementById('my-age').innerHTML = calculate_age(new Date('1998-06-01'));
+	</script>
+
+</html>
