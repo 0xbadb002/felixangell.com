@@ -87,6 +87,12 @@ h1, h2, h3, h4, h5, h6 {
 .full-page .title {
 	font-family: 'MedievalSharp', 'Lora', sans-serif;
 	text-transform: capitalize;
+	color: #fff;
+	font-size: 96px;
+}
+
+.full-page a {
+	color: #fff;
 }
 
 a {
@@ -146,7 +152,7 @@ a:visited {
 	width: 100%;
 	overflow: hidden;
 	z-index: 100;
-	background: #ddd;
+	background: #F06292;
 }
 
 .me {
