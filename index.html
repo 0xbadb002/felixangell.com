@@ -48,7 +48,7 @@
 							<h2 class="section-title">Contact</h2>
 							<p>
 								Want to contact me? You can email me at 0xbadb002&commat;gmail&period;com, or you can somehow get
-								hold of me through my <a href="//github.com/0xbadb002">GitHub</a>.
+								hold of me through my <a href="//github.com/felixangell">GitHub</a>.
 							</p>
 						</article>
 					</section>
@@ -71,19 +71,26 @@
 					<article class="project">
 						<h3 class="project-title"><a href="//github.com/ark-lang/ark">Ark</a> <span class="desc">Go</span></h3>
 						<div class="project-cover">
-							<img src="img/ark.gif">
-							<p class="img-caption">
-								Back when Ark generated C code, this is a test binding to SDL
-								and rendering a 3d cube that rotates.
-							</p>
+                            <video controls autoplay>
+                                <source type="video/webm" src="video/ark-opengl.webm"></source>
+                            </video>
+                            <p class="img-caption">
+                                This is a recent example of Ark using GLFW bindings
+                                to render a triangle using OpenGL.
+                            </p>
 						</div>
 						<p>
-							Ark is a compiled programming language written in Go, it uses
-							the LLVM framework (i.e. it compiles to LLVM IR). It's the side-project
-							I've spent the most time working on. The compiler is mostly hand-written,
-							and is being worked on by a team of five people (including myself). As
-							well as designing and implementing the language, I also wrote the <a href="//ark-lang.org">
-							website</a> and the language <a href="//book.ark-lang.org">reference</a>.
+                            Ark is a compiled programming language written in Go, it uses
+							the LLVM framework as a backend, and the frotend is hand-written. 
+                            It's the side-project I've spent the most time working on. You can check
+                            out more on the language itself on the<a href="//ark-lang.org">website</a>
+                            and the language <a href="//book.ark-lang.org">reference</a> (both of which
+                            I wrote!). To sum up the language, it features many modern concepts: native
+                            utf8 support, lambdas, named types, tagged unions, a directory-based module system,
+                            generics, pattern maching and more. The language is focused on systems programming, 
+                            from simple (and complex) desktop applications, to operating systems, and compilers.
+                            Because it's written using the LLVM framework, it's very fast and is comparable to
+                            the speed of a language like C - and in some cases it's faster.
 						</p>
 					</article>
 
@@ -130,8 +137,9 @@
 					<article class="project">
 						<h3 class="project-title"><a href="//github.com/0xbadb002/mac">mac</a> <span class="desc">C</span></h3>
 						<p>
-							I wrote this for a blog series on how to write a simple virtual machine in C, which you can read <a href="blog.felixangell.com/virtual-machine-in-c/">here</a>. Writing about programming, and teaching things
-							to people is another thing I enjoy doing.
+							I wrote this for a blog series on how to write a simple virtual machine in C, which you 
+                            can read <a href="blog.felixangell.com/virtual-machine-in-c/">here</a>. Writing about programming, and teaching
+							people is another thing I enjoy doing. I quite like keeping a blog where I can post.
 							The repository contains two versions, the first being a simplified version with very few instructions,
 							and a more advanced version that can load programs from files and has more instructions e.g. 
 							basic flow control. The virtual machine itself is not complete, and is more for educational purposes.
@@ -150,7 +158,9 @@
 						<p>
 							LLM is a small side-project that implements a simple markup language
 							in C++ using the FastCGI protocol to pipe HTML straight to the web server. It
-							uses a lisp-y syntax, and is relatively fast.
+							uses a lisp-y syntax, and is relatively fast. The project currently is usable
+                            for creating websites, and will eventually be expanded to be an actual
+                            server-side programming language.
 						</p>
 					</article>	
 
@@ -161,7 +171,9 @@
 							the Cargo package manager (for Rust) and Go's built-in package manager. It is written in C,
 							and includes a hand-written TOML parser (written by yours truly). Currently it only supports
 							GitHub for projects, projects created with Arkade are pushed to GitHub, it fetches dependencies
-							from GitHub, and uses git tags for versioning dependencies and the package itself.
+							from GitHub, and uses git tags for versioning dependencies and the package itself. The language
+                            will eventually be used as the recommended package manager for programming Ark, and hopefully
+                            will be used on on the Ark project too.
 						</p>
 					</article>
 
