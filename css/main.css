@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-transform: uppercase;
 }
 
-.project-title {
+.full-page .title {
 	font-family: 'MedievalSharp', 'Lora', sans-serif;
 	text-transform: uppercase;
 }
