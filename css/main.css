@@ -198,3 +198,13 @@ header {
 	text-transform: uppercase;
 	font-family: 'Lora';
 }
+
+.navigation ul li a {
+	color: #fff;
+}
+
+.navigation ul li a:hover,
+.navigation ul li a:visited,
+.navigation ul li a:focus {
+	color: #f5f5f5;
+}
