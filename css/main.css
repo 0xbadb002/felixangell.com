@@ -80,12 +80,12 @@ article {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Lora', 'Fira Sans', sans-serif;
+	font-family: 'Merriweather', 'Fira Sans', sans-serif;
 	text-transform: uppercase;
 }
 
 .full-page .title {
-	font-family: 'MedievalSharp', 'Lora', sans-serif;
+	font-family: 'MedievalSharp', 'Merriweather', sans-serif;
 	text-transform: capitalize;
 	color: #fff;
 	font-size: 96px;
@@ -194,10 +194,10 @@ header {
 	display: inline-block;
 	float: left;
 	padding: 4px 8px;
-	font-weight: bold;
-	text-transform: uppercase;
+	font-weight: lighter;
+	text-transform: capitalize;
 	font-size: 14pt;
-	font-family: 'Lato';
+	font-family: 'Merriweather';
 }
 
 .navigation ul li a {
