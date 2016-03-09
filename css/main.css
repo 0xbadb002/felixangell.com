@@ -89,6 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-transform: capitalize;
 	color: #fff;
 	font-size: 96px;
+	text-shadow: #444 2px 2px;
 }
 
 .full-page a {
