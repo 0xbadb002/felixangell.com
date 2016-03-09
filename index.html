@@ -13,6 +13,7 @@
 
 	<body>
 		<div class="full-page">
+			<div id="code"></div>
 			<div class="me">
 				<h1 class="title">felix angell</h1>
 				<nav class="navigation">
@@ -198,6 +199,7 @@
 		</div>
 	</body>
 
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 	<script>
 	// calculates birthday based on epoch
 	// @param birthday birthday as Date()
@@ -206,8 +208,6 @@
 		var age_date = new Date(age_dif_msg);
 		return Math.abs(age_date.getUTCFullYear() - 1970);
 	}
-
-	document.getElementById('my-age').innerHTML = calculate_age(new Date('1998-06-01'));
 	</script>
 
 </html>

@@ -79,13 +79,32 @@ article {
 	padding: 10px;
 }
 
+#code {
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 10;
+	font-family: 'Inconsolata', monospace;
+	color: #eee;
+	padding: 5px;
+}
+
+.me {
+	display: block;
+	z-index: 50;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Merriweather', 'Fira Sans', sans-serif;
-	text-transform: uppercase;
+	text-transform: capitalize;
 }
 
 .full-page .title {
-	font-family: 'MedievalSharp', 'Merriweather', sans-serif;
+	font-family: 'Merriweather', sans-serif;
 	text-transform: capitalize;
 	color: #fff;
 	font-size: 96px;
