@@ -38,8 +38,7 @@
                 I write articles from time to time. Here are
                 my most recent ones:
             </p>
-            <ul>
-                <li><a href=""></a></li>    
+            <ul class="article-container">
             </ul>
         </section>
         <section>
@@ -86,9 +85,13 @@
             for (const entry of entries) {
                 const title = entry.querySelector('title').innerText;
                 const published = new Date(entry.querySelector('published').innerText);
-                const link = entry.querySelector('link');
+                const link = entry.querySelector('link').href;
 
-                console.log(title, published, link);
+                response.push({
+                    title: title,
+                    published: published,
+                    link: link,
+                });
             }
         }
 
@@ -96,7 +99,22 @@
             const resp = await fetch(url);
             if (resp.status === 200) {
                 const text = await resp.text();
-                parseFeed(text);
+
+                let articleContainer = document.querySelector('.article-container');
+
+                const posts = parseFeed(text);
+                for (const post of posts) {
+                    const { title, published, link } = post;
+
+                    const anchor = document.createElement('a');
+                    anchor.setAttribute('href', link);
+                    anchor.appendChild(document.createTextNode(title));
+
+                    const listItem = document.createElement('li');
+
+                    listItem.append(anchor);
+                    articleContainer.appendChild(listItem);
+                }
             }
         }
         start();
