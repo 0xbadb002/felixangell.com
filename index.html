@@ -69,13 +69,23 @@
     
     <script>
         let url = "https://felixangell.com/feed";
+        function parseFeed(body) {
+            var xml = document.createElement('xml');
+            xml.innerHTML = body;
+            console.log(xml);
+            
+            const entries = xml.querySelector('entry');
+            console.log(entries);
+        }
+
         async function start() {
             const resp = await fetch(url);
             if (resp.status === 200) {
-                parseFeed(resp.body);
+                parseFeed(resp.text());
             }
         }
         start();
+
     </script>
     
 </html>
