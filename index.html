@@ -83,7 +83,10 @@
             const entries = xml.querySelectorAll('entry');
 
             for (const entry of entries) {
-                const title = entry.querySelector('title').innerText;
+                // we're only going to decode one html entity very poorly!
+                let title = entry.querySelector('title').innerText
+                    .replace('&amp;', '&');
+
                 const published = new Date(entry.querySelector('published').innerText);
                 const link = entry.querySelector('link').href;
 
