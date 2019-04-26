@@ -8,6 +8,11 @@ body {
     padding: 0 10px;
 }
 
+.strip {
+    background: #ff7e30;
+    height: 0.5em;
+}
+
 h1, h2, h3 {
     line-height:1.2
 }

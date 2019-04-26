@@ -11,6 +11,8 @@
     </head>
     
     <body>
+        <div class="strip"></div>
+
         <h1>Felix Angell's personal website</h1>
         <section>
             <h2>About</h2>
@@ -20,17 +22,9 @@
                 <a href="//beaconing.eu">Beaconing</a> project.
             </p>
             <p>
-                In my spare time I work on <a href="//krug-lang.org">Krug</a>, a compiled
-                programming language.
+                In my spare time I work on Krug, a compiled programming language, which you
+                can read more about on the website <a href='//krug-lang.org'>here</a>.
             </p>
-        </section>
-        <section>
-            <h2>Links</h2>
-            <ul>
-                <li><a href="//github.com/felixangell">GitHub</a></li>
-                <li><a href="//blog.felixangell.com">Blog</a></li>
-                <li><a href="//twitter.com/felix_angell">Twitter</a></li>
-            </ul>
         </section>
         <section>
             <h2>Articles</h2>
@@ -54,6 +48,14 @@
             </ul>
         </section>
         <section>
+            <h2>Links</h2>
+            <ul>
+                <li><a href="//github.com/felixangell">GitHub</a></li>
+                <li><a href="//blog.felixangell.com">Blog</a></li>
+                <li><a href="//twitter.com/felix_angell">Twitter</a></li>
+            </ul>
+        </section>
+        <section>
             <h2>Contact</h2>
             <p>
                 You can email me at <a href="mailto:mail@felixangell.com">mail&commat;felixangell.com</a>.
@@ -62,7 +64,7 @@
         
         <footer>
             <hr>
-            <p>&copy; 2018 Felix Angell.</p>
+            <p>&copy; 2019 Felix Angell.</p>
         </footer>
     </body>
     
@@ -71,19 +73,26 @@
         function parseFeed(body) {
             const response = [];
 
-            // oh boy!
+            // oh boy! we skip this because otherwise
+            // the document create element thing will only
+            // parse the <xml> tag which is self closing,
+            // and it doesn't seem to parse the adjacent
+            // feed tag after with the actual content we want.
             const feedStart = body.indexOf('<feed');
+            if (feedStart === -1) {
+                // probably can't parse this RSS feed.
+                return [];
+            }
 
             let rssFeed = body.slice(feedStart);
 
             var xml = document.createElement('xml');
             xml.innerHTML = rssFeed;
-            console.log(xml);
             
             const entries = xml.querySelectorAll('entry');
 
             for (const entry of entries) {
-                // we're only going to decode one html entity very poorly!
+                // we're only going to decode one html entity (very poorly)
                 let title = entry.querySelector('title').innerText
                     .replace('&amp;', '&');
 
