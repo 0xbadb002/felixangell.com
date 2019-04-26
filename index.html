@@ -86,7 +86,8 @@
         async function start() {
             const resp = await fetch(url);
             if (resp.status === 200) {
-                parseFeed(resp.text());
+                const text = await resp.text();
+                parseFeed(text);
             }
         }
         start();
