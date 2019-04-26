@@ -16,8 +16,12 @@
             <h2>About</h2>
             <p>Hello! My name is Felix.</p>
             <p>
-                I'm a programmer from Brighton. Currently, I'm working on the <a href="//beaconing.eu">beaconing</a>
-                project at Hands-Free Computing.
+                I'm a programmer from Brighton. Currently, I'm working on the Horizon 2020 
+                <a href="//beaconing.eu">Beaconing</a> project.
+            </p>
+            <p>
+                In my spare time I work on <a href="//krug-lang.org">Krug</a>, a compiled
+                programming language.
             </p>
         </section>
         <section>
@@ -26,6 +30,16 @@
                 <li><a href="//github.com/felixangell">GitHub</a></li>
                 <li><a href="//blog.felixangell.com">Blog</a></li>
                 <li><a href="//twitter.com/felix_angell">Twitter</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2>Articles</h2>
+            <p>
+                I write articles from time to time. Here are
+                my most recent ones:
+            </p>
+            <ul>
+                <li><a href=""></a></li>    
             </ul>
         </section>
         <section>
@@ -52,5 +66,14 @@
             <p>&copy; 2018 Felix Angell.</p>
         </footer>
     </body>
-
+    
+    <script>
+        let url = "./rss";
+        async function start() {
+            const resp = await fetch(url);
+            console.log(resp);
+        }
+        start();
+    </script>
+    
 </html>
