@@ -81,7 +81,7 @@
             xml.innerHTML = rssFeed;
             console.log(xml);
             
-            const entries = xml.querySelector('entry');
+            const entries = xml.querySelectorAll('entry');
 
             for (const entry of entries) {
                 const title = entry.querySelector('title').innerText;
