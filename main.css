@@ -1,16 +1,28 @@
 /* Written by http://bettermotherfuckingwebsite.com/ */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 body {
-    margin: 40px auto;
-    max-width: 650px;
-    line-height: 1.6;
-    font-size: 18px;
-    color: #444;
-    padding: 0 10px;
+    font-family: "Computer Modern Serif", serif;
+    margin: 0;
 }
 
 .strip {
     background: #ff7e30;
     height: 0.5em;
+}
+
+main, footer {
+    margin: 40px auto;
+    max-width: 650px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+    padding: 0.5em;
 }
 
 h1, h2, h3 {
