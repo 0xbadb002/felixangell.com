@@ -70,6 +70,8 @@
     <script>
         let url = "https://felixangell.com/feed";
         function parseFeed(body) {
+            const response = [];
+
             // oh boy!
             const feedStart = body.indexOf('<feed');
 
@@ -80,7 +82,14 @@
             console.log(xml);
             
             const entries = xml.querySelector('entry');
-            console.log('entries: ', entries);
+
+            for (const entry of entries) {
+                const title = entry.querySelector('title').innerText;
+                const published = new Date(entry.querySelector('published').innerText);
+                const link = entry.querySelector('link');
+
+                console.log(title, published, link);
+            }
         }
 
         async function start() {
