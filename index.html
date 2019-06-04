@@ -18,14 +18,27 @@
             <h1>Felix Angell's personal website</h1>
             <section>
                 <h2>About</h2>
-                <p>Hello! My name is Felix.</p>
                 <p>
-                    I'm a programmer from Brighton. Currently, I'm working on the Horizon 2020 
-                    <a href="//beaconing.eu">Beaconing</a> project.
+                    Hello, I'm Felix! A programmer from Brighton. My main interests are
+                    compilers, programming languages, tooling, and intuitive user-interface.
+                </p>
+                <p>
+                    Currently, I'm working a placement at eBay in Shoreditch, London. Specifically I work
+                    on the Shutl delivery service.
+                </p>
+                <p>
+                    Previously, I worked on the Horizon 2020 <a href="//beaconing.eu">Beaconing</a> project
+                    as a full-stack developer working on the teacher user-interface.
                 </p>
                 <p>
                     In my spare time I work on Krug, a compiled programming language, which you
                     can read more about on the website <a href='//krug-lang.org'>here</a>.
+                </p>
+                <p>
+                    I have a few other side projects you should check out: my text editor
+                    <a href='//phi.felixangell.com'>Phi</a>, a 2d graphics framework in 
+                    Go <a href='//github.com/felixangell/strife'>Strife</a>, and a few
+                    others on my <a href='//github.com/felixangell'>GitHub</a>.
                 </p>
             </section>
             <section>
@@ -38,23 +51,12 @@
                 </ul>
             </section>
             <section>
-                <h2>Project Links</h2>
-                <p>
-                    A few of my favourite projects that I've built:
-                </p>
-                <ul>
-                    <li><a href="//github.com/felixangell/phi">Phi</a> &mdash; text-editor (Go)</li>
-                    <li><a href="//github.com/felixangell/krug">Krug</a> &mdash; compiled systems programming language (D)</li>
-                    <li><a href="//github.com/felixangell/strife">Strife</a> &mdash; 2d rendering framework (Go)</li>
-                    <li><a href="//github.com/ark-lang">Ark</a> &mdash; compiled systems programming language (Go)</li>
-                </ul>
-            </section>
-            <section>
                 <h2>Links</h2>
                 <ul>
                     <li><a href="//github.com/felixangell">GitHub</a></li>
                     <li><a href="//blog.felixangell.com">Blog</a></li>
                     <li><a href="//twitter.com/felix_angell">Twitter</a></li>
+                    <li><a href="//www.linkedin.com/in/felix-angell/">LinkedIn</a></li>
                 </ul>
             </section>
             <section>
@@ -81,6 +83,7 @@
             // parse the <xml> tag which is self closing,
             // and it doesn't seem to parse the adjacent
             // feed tag after with the actual content we want.
+            // this will break some day!
             const feedStart = body.indexOf('<feed');
             if (feedStart === -1) {
                 // probably can't parse this RSS feed.
