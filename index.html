@@ -16,7 +16,7 @@
 <div class="strip"></div>
 
 <main>
-  <h1><span id='websiteLocation'>felixangell.com</span></h1>
+  <h1><a id='websiteLocationHref' href=""><span id='websiteLocation'>felixangell.com</span></a></h1>
   <section>
     <h2>About Me</h2>
     <p>
@@ -155,8 +155,13 @@
 
     start()
 
+    const { hostname } = window.location
+
     const title = document.querySelector('#websiteLocation')
-    title.textContent = window.location.hostname
+    title.textContent = hostname || 'felixangell.com'
+
+    const link = document.querySelector('#websiteLocationHref')
+    link.setAttribute('href', window.location.protocol + '//' + hostname)
 </script>
 
 </html>

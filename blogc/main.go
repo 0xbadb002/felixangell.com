@@ -52,7 +52,7 @@ func compileBlog(config BlogConfig) {
 		})
 
 		fileName := strings.TrimSuffix(article.Source, filepath.Ext(article.Source))
-		ioutil.WriteFile(fmt.Sprintf("%s.compiledout.html", fileName), output.Bytes(), 0644)
+		ioutil.WriteFile(fmt.Sprintf("%s.html", fileName), output.Bytes(), 0644)
 	}
 }
 
