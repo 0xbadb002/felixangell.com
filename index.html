@@ -1,147 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <title>Felix Angell's personal website</title>
-        <link rel="stylesheet" type="text/css" href="fonts.css">
-        <link rel="stylesheet" href="main.css" type="text/css"/>
-        <meta name="description" content="The personal website of Felix Angell.">
+<head>
+  <meta charset="utf-8">
+  <title>Felix Angell's personal website</title>
+  <link rel="stylesheet" type="text/css" href="fonts.css">
+  <link rel="stylesheet" href="main.css" type="text/css"/>
+  <meta name="description" content="The personal website of Felix Angell.">
 
-        <meta name="viewport" content="width=device-width; initial-scale=1.0;">
-        <meta name="author" content="Felix Angell">
-    </head>
-    
-    <body>
-        <div class="strip"></div>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+  <meta name="author" content="Felix Angell">
+</head>
 
-        <main>
-            <h1><span id='websiteLocation'>felixangell.com</span></h1>
-            <section>
-                <h2>About Me</h2>
-                <p>
-                    Hi 👋 I'm Felix, a SWE working in London, living in Brighton. Currently,
-                    I'm a SWE at eBay.
-                </p>
-            </section>
-            <section>
-                <h2>Companies & Projects</h2>
-                <p>
-                    <ul>
-                        <li>
-                            eBay: 2019 - Current:
-                            <ul>
-                                <li>Working on the Global Platform for Logistics &amp; Tracking (GPLT) team.</li>
-                            </ul>
-                        </li>
-                        <li><a href='https://otzaf.org'>Otzaf</a>: an engineering company which is the home for a few software projects</li>
-                        <li><a href='https://phi.felixangell.com'>Phi</a>: code editor implemented entirely from the ground up, as in with a graphics framework rather than a GUI library.</li>
-                        <li><a href='https://github.com/felixangell/strife'>Strife</a>: a 2d graphics framework in Go &mdash; used to implement the aforementioned code editors</li>
-                        <li><a href='https://krug-lang.org'>Krug</a>: a compiled systems programming language with a somewhat experimental architecture</li>
-                    </ul>
-                </p>
-            </section>
-            <section>
-                <h2>Articles</h2>
-                <p>
-                    I write articles from time to time. Here are
-                    my most recent ones:
-                </p>
-                <ul class="article-container">
-                </ul>
-            </section>
-            <section>
-                <h2>Links</h2>
-                <ul>
-                    <li><a href="https://github.com/felixangell">GitHub</a></li>
-                    <li><a href="https://blog.felixangell.com">Blog</a></li>
-                    <li><a href="https://twitter.com/felix_angell">Twitter</a></li>
-                    <li><a href="https://www.linkedin.com/in/felix-angell/">LinkedIn</a></li>
-                </ul>
-            </section>
-            <section>
-                <h2>Contact</h2>
-                <p>
-                    You can email me at <a href="mailto:mail@felixangell.com">mail&commat;felixangell.com</a>.
-                </p>
-            </section>
-        </main>
-            
-        <footer>
-            <hr>
-            <p>&copy; 2019 Felix Angell.</p>
-        </footer>
-    </body>
-    
-    <script>
-        let url = "https://felixangell.com/feed"
-        function parseFeed(body) {
-            const response = []
+<body>
+<div class="strip"></div>
 
-            // oh boy! we skip this because otherwise
-            // the document create element thing will only
-            // parse the <xml> tag which is self closing,
-            // and it doesn't seem to parse the adjacent
-            // feed tag after with the actual content we want.
-            // this will break some day!
-            const feedStart = body.indexOf('<feed')
-            if (feedStart === -1) {
-                // probably can't parse this RSS feed.
-                return []
-            }
+<main>
+  <h1><span id='websiteLocation'>felixangell.com</span></h1>
+  <section>
+    <h2>About Me</h2>
+    <p>
+      Hi 👋 I'm Felix.
+    </p>
+  </section>
+  <section>
+    <h2>Companies</h2>
+    <p>
+    <ul>
+      <li>
+        eBay: 2019 - Current:
+        <ul>
+          <li>Working on the Global Platform for Logistics &amp; Tracking (GPLT) team.</li>
+        </ul>
+      </li>
+    </ul>
+    </p>
+  </section>
+  <section>
+    <h2>Projects</h2>
+    <p>
+    <ul>
+      <li><a href='https://github.com/otz1/'>Otzit</a>: a really simple toy meta-search engine</li>
+      <li><a href='https://otzaf.org'>Otzaf</a>: home to a few side-projects</li>
+      <li><a href='https://krug-lang.org'>Krug</a>: a compiled systems programming language with a
+        somewhat experimental architecture
+      </li>
+      <li><a href='https://phi.felixangell.com'>Phi</a>: code editor implemented entirely from the ground
+        up, as in with a graphics framework rather than a GUI library.
+      </li>
+      <li><a href='https://github.com/felixangell/strife'>Strife</a>: a 2d graphics framework in Go
+        &mdash; used to implement the aforementioned code editors
+      </li>
+    </ul>
+    </p>
+  </section>
+  <section>
+    <h2>Articles</h2>
+    <p>
+      I write articles from time to time. Here are
+      my most recent ones:
+    </p>
+    <ul class="article-container">
+    </ul>
+  </section>
+  <section>
+    <h2>Links</h2>
+    <ul>
+      <li><a href="https://github.com/felixangell">GitHub</a></li>
+      <li><a href="https://blog.felixangell.com">Blog</a></li>
+      <li><a href="https://twitter.com/felix_angell">Twitter</a></li>
+      <li><a href="https://www.linkedin.com/in/felix-angell/">LinkedIn</a></li>
+    </ul>
+  </section>
+  <section>
+    <h2>Contact</h2>
+    <p>
+      You can email me at <a href="mailto:mail@felixangell.com">mail&commat;felixangell.com</a>.
+    </p>
+  </section>
+</main>
 
-            let rssFeed = body.slice(feedStart)
+<footer>
+  <hr>
+  <p>&copy; 2019 Felix Angell.</p>
+</footer>
+</body>
 
-            var xml = document.createElement('xml')
-            xml.innerHTML = rssFeed
-            
-            const entries = xml.querySelectorAll('entry')
+<script>
+    let url = "https://felixangell.com/feed"
 
-            for (const entry of entries) {
-                // we're only going to decode one html entity (very poorly)
-                let title = entry.querySelector('title').innerText
-                    .replace('&amp;', '&')
+    function parseFeed(body) {
+        const response = []
 
-                const published = new Date(entry.querySelector('published').innerText)
-                const link = entry.querySelector('link').href
-
-                response.push({
-                    title: title,
-                    published: published,
-                    link: link,
-                })
-            }
-
-            return response
+        // oh boy! we skip this because otherwise
+        // the document create element thing will only
+        // parse the <xml> tag which is self closing,
+        // and it doesn't seem to parse the adjacent
+        // feed tag after with the actual content we want.
+        // this will break some day!
+        const feedStart = body.indexOf('<feed')
+        if (feedStart === -1) {
+            // probably can't parse this RSS feed.
+            return []
         }
 
-        async function start() {
-            const resp = await fetch(url)
-            if (resp.status === 200) {
-                const text = await resp.text()
+        let rssFeed = body.slice(feedStart)
 
-                let articleContainer = document.querySelector('.article-container')
+        var xml = document.createElement('xml')
+        xml.innerHTML = rssFeed
 
-                const posts = parseFeed(text) || []
-                for (const post of posts) {
-                    const { title, published, link } = post
+        const entries = xml.querySelectorAll('entry')
 
-                    const anchor = document.createElement('a')
-                    anchor.setAttribute('href', link)
-                    anchor.appendChild(document.createTextNode(title))
+        for (const entry of entries) {
+            // we're only going to decode one html entity (very poorly)
+            let title = entry.querySelector('title').innerText
+                .replace('&amp;', '&')
 
-                    const listItem = document.createElement('li')
+            const published = new Date(entry.querySelector('published').innerText)
+            const link = entry.querySelector('link').href
 
-                    listItem.append(anchor)
-                    articleContainer.appendChild(listItem)
-                }
-            }
-
+            response.push({
+                title: title,
+                published: published,
+                link: link,
+            })
         }
-        start()
 
-        const title = document.querySelector('#websiteLocation')
-        title.textContent = window.location.hostname
-    </script>
-    
+        return response
+    }
+
+    async function start() {
+        const resp = await fetch(url)
+        if (resp.status === 200) {
+            const text = await resp.text()
+
+            let articleContainer = document.querySelector('.article-container')
+
+            const posts = parseFeed(text) || []
+            for (const post of posts) {
+                const {title, published, link} = post
+
+                const anchor = document.createElement('a')
+                anchor.setAttribute('href', link)
+                anchor.appendChild(document.createTextNode(title))
+
+                const listItem = document.createElement('li')
+
+                listItem.append(anchor)
+                articleContainer.appendChild(listItem)
+            }
+        }
+
+    }
+
+    start()
+
+    const title = document.querySelector('#websiteLocation')
+    title.textContent = window.location.hostname
+</script>
+
 </html>
