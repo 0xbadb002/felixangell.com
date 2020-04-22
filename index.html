@@ -61,6 +61,9 @@
       my most recent ones:
     </p>
     <ul class="article-container">
+      <li><a href="blogs/compilers-brief-and-brisk">A Brief &amp; Brisk Overview of Compiler Architecture</a></li>
+      <li><a href="blogs/an-introduction-to-llvm-in-go">An introduction to LLVM in Go</a></li>
+      <li><a href="blogs/virtual-machine-in-c">Virtual machine in C</a></li>
     </ul>
   </section>
   <section>
@@ -87,75 +90,7 @@
 </body>
 
 <script>
-    let url = "https://felixangell.com/feed"
-
-    function parseFeed(body) {
-        const response = []
-
-        // oh boy! we skip this because otherwise
-        // the document create element thing will only
-        // parse the <xml> tag which is self closing,
-        // and it doesn't seem to parse the adjacent
-        // feed tag after with the actual content we want.
-        // this will break some day!
-        const feedStart = body.indexOf('<feed')
-        if (feedStart === -1) {
-            // probably can't parse this RSS feed.
-            return []
-        }
-
-        let rssFeed = body.slice(feedStart)
-
-        var xml = document.createElement('xml')
-        xml.innerHTML = rssFeed
-
-        const entries = xml.querySelectorAll('entry')
-
-        for (const entry of entries) {
-            // we're only going to decode one html entity (very poorly)
-            let title = entry.querySelector('title').innerText
-                .replace('&amp;', '&')
-
-            const published = new Date(entry.querySelector('published').innerText)
-            const link = entry.querySelector('link').href
-
-            response.push({
-                title: title,
-                published: published,
-                link: link,
-            })
-        }
-
-        return response
-    }
-
-    async function start() {
-        const resp = await fetch(url)
-        if (resp.status === 200) {
-            const text = await resp.text()
-
-            let articleContainer = document.querySelector('.article-container')
-
-            const posts = parseFeed(text) || []
-            for (const post of posts) {
-                const {title, published, link} = post
-
-                const anchor = document.createElement('a')
-                anchor.setAttribute('href', link)
-                anchor.appendChild(document.createTextNode(title))
-
-                const listItem = document.createElement('li')
-
-                listItem.append(anchor)
-                articleContainer.appendChild(listItem)
-            }
-        }
-
-    }
-
-    start()
-
-    const { hostname } = window.location
+    const {hostname} = window.location
 
     const title = document.querySelector('#websiteLocation')
     title.textContent = hostname || 'felixangell.com'

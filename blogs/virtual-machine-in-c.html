@@ -21,46 +21,68 @@
     <h2>Virtual machine in C</h2>
     <p>2015-11-15</p>
     <p><em><strong>Hacker News Dicussion</strong>
-<a href="https://news.ycombinator.com/item?id=9762054">Article discussion on Hacker News</a></em></p>
+      <a href="https://news.ycombinator.com/item?id=9762054">Article discussion on Hacker News</a></em></p>
 
-<h2>Introduction</h2>
+    <h2>Introduction</h2>
 
-<p>Here&rsquo;s the GitHub to show what we&rsquo;ll be making. You can also compare your code to this repository in case you have any errors: <a href="http://www.github.com/felixangell/mac">GitHub Repository</a></p>
+    <p>Here&rsquo;s the GitHub to show what we&rsquo;ll be making. You can also compare your code to this repository in
+      case you have any errors: <a href="http://www.github.com/felixangell/mac">GitHub Repository</a></p>
 
-<p>I felt like writing an article about building your very own virtual machine in the C programming language. I love working on lower level applications e.g. compilers, interpreters, parsers, virtual machines, etc. So I thought I&rsquo;d write this article as learning how virtual machines work is a great way to introduce yourself into the general realm of lower level programming!</p>
+    <p>I felt like writing an article about building your very own virtual machine in the C programming language. I love
+      working on lower level applications e.g. compilers, interpreters, parsers, virtual machines, etc. So I thought I&rsquo;d
+      write this article as learning how virtual machines work is a great way to introduce yourself into the general
+      realm of lower level programming!</p>
 
-<h2>Prerequisites &amp; Notices</h2>
+    <h2>Prerequisites &amp; Notices</h2>
 
-<p>There are a few things that you need before we can continue:</p>
+    <p>There are a few things that you need before we can continue:</p>
 
-<ul>
-<li>GCC/Clang/.. — I&rsquo;m using clang, but you can use any modern compiler;</li>
-<li>Text Editor — I would suggest a text editor over an IDE (when writing C), I&rsquo;ll be using Emacs;</li>
-<li>Basic programming knowledge — Just the basics: variables, flow control, functions, structures, etc; and</li>
-<li>GNU Make — A build system so we aren&rsquo;t writing the same commands in the terminal over and over to compile our code</li>
-</ul>
+    <ul>
+      <li>GCC/Clang/.. — I&rsquo;m using clang, but you can use any modern compiler;</li>
+      <li>Text Editor — I would suggest a text editor over an IDE (when writing C), I&rsquo;ll be using Emacs;</li>
+      <li>Basic programming knowledge — Just the basics: variables, flow control, functions, structures, etc; and</li>
+      <li>GNU Make — A build system so we aren&rsquo;t writing the same commands in the terminal over and over to
+        compile our code
+      </li>
+    </ul>
 
-<h2>Why should I write a Virtual Machine?</h2>
+    <h2>Why should I write a Virtual Machine?</h2>
 
-<p>Here are some reasons why <strong>you</strong> should write a virtual machine:</p>
+    <p>Here are some reasons why <strong>you</strong> should write a virtual machine:</p>
 
-<ul>
-<li>You want a deeper understanding of how computers work. This article will help you understand what your computer does at a lower level, a virtual machine provides a nice simpler layer of abstraction. And there&rsquo;s no better way to learn than build one, ey?</li>
-<li>You just want to learn about virtual machines because it&rsquo;s fun.</li>
-<li>You want to learn more about how some programming languages work. For instance, various languages nowadays target virtual machines - usually written specifically for the language. Examples include the JVM, Lua&rsquo;s VM, Facebook&rsquo;s Hip-Hop VM (PHP/Hack), etc. There&rsquo;s also quite a large abstraction, from say a C++ program to assembly for your machine. When you think about it, we take a lot for granted when we write our programs in our fancy OOP paradigm language with garbage collection and all these nice features.</li>
-</ul>
+    <ul>
+      <li>You want a deeper understanding of how computers work. This article will help you understand what your
+        computer does at a lower level, a virtual machine provides a nice simpler layer of abstraction. And there&rsquo;s
+        no better way to learn than build one, ey?
+      </li>
+      <li>You just want to learn about virtual machines because it&rsquo;s fun.</li>
+      <li>You want to learn more about how some programming languages work. For instance, various languages nowadays
+        target virtual machines - usually written specifically for the language. Examples include the JVM, Lua&rsquo;s
+        VM, Facebook&rsquo;s Hip-Hop VM (PHP/Hack), etc. There&rsquo;s also quite a large abstraction, from say a C++
+        program to assembly for your machine. When you think about it, we take a lot for granted when we write our
+        programs in our fancy OOP paradigm language with garbage collection and all these nice features.
+      </li>
+    </ul>
 
-<h3>Instruction Set</h3>
+    <h3>Instruction Set</h3>
 
-<p>We&rsquo;ll be implementing our own instruction set, it will be relatively simple. I&rsquo;ll briefly cover instructions like moving values from registers, or jumping to other instructions, but hopefully you&rsquo;ll figure this out after you&rsquo;ve read the article.</p>
+    <p>We&rsquo;ll be implementing our own instruction set, it will be relatively simple. I&rsquo;ll briefly cover
+      instructions like moving values from registers, or jumping to other instructions, but hopefully you&rsquo;ll
+      figure this out after you&rsquo;ve read the article.</p>
 
-<p>Our virtual machine will have a set of register: <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, <code>E</code>, and <code>F</code>. These are general purpose registers, which means that they can be used for storing anything. This is as opposed to say special purpose registers, for example on x86, e.g: <code>ip</code>, <code>flag</code>, <code>ds</code>, &hellip;</p>
+    <p>Our virtual machine will have a set of register: <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>,
+      <code>E</code>, and <code>F</code>. These are general purpose registers, which means that they can be used for
+      storing anything. This is as opposed to say special purpose registers, for example on x86, e.g: <code>ip</code>,
+      <code>flag</code>, <code>ds</code>, &hellip;</p>
 
-<p>A program will be a read-only sequence of instructions. The virtual machine is a stack-based virtual machine, which means that it has a stack we can push and pop values to, and a few registers we can use too. These are also a lot more simpler to implement than a register-based virtual machine.</p>
+    <p>A program will be a read-only sequence of instructions. The virtual machine is a stack-based virtual machine,
+      which means that it has a stack we can push and pop values to, and a few registers we can use too. These are also
+      a lot more simpler to implement than a register-based virtual machine.</p>
 
-<p>Without further ado, here&rsquo;s an example of the instruction set we&rsquo;re going to be implementing in action. The semi-colons are comments on what the line will do.</p>
+    <p>Without further ado, here&rsquo;s an example of the instruction set we&rsquo;re going to be implementing in
+      action. The semi-colons are comments on what the line will do.</p>
 
-<pre><code>PSH 5       ; pushes 5 to the stack
+    <pre><code>PSH 5       ; pushes 5 to the stack
 PSH 10      ; pushes 10 to the stack
 ADD         ; pops two values on top of the stack, adds them pushes to stack
 POP         ; pops the value on the stack, will also print it for debugging
@@ -68,31 +90,43 @@ SET A 0     ; sets register A to 0
 HLT         ; stop the program
 </code></pre>
 
-<p>That&rsquo;s our instruction set, note that the POP instruction will print the instruction we popped, this is more of a debugging thing (ADD will push a result to the stack, so we can POP the value from the stack to verify it is there).
-I&rsquo;ve also included a SET instruction, this is so you understand how registers can be accessed and written to. You can also try your hand at implementing instructions like <code>MOV A, B</code> (move the value A to B). <code>HLT</code> is the instruction to show we&rsquo;ve finished executing the program.</p>
+    <p>That&rsquo;s our instruction set, note that the POP instruction will print the instruction we popped, this is
+      more of a debugging thing (ADD will push a result to the stack, so we can POP the value from the stack to verify
+      it is there).
+      I&rsquo;ve also included a SET instruction, this is so you understand how registers can be accessed and written
+      to. You can also try your hand at implementing instructions like <code>MOV A, B</code> (move the value A to B).
+      <code>HLT</code> is the instruction to show we&rsquo;ve finished executing the program.</p>
 
-<h2>How does a Virtual Machine work?</h2>
+    <h2>How does a Virtual Machine work?</h2>
 
-<p>Virtual Machines are more simple than you think, they follow a simple pattern, the &ldquo;instruction cycle&rdquo;, which is: fetch; decode; and execute.
-First we fetch the next instruction in the instruction list or code, we then decode the instruction and execute the decoded instruction.</p>
+    <p>Virtual Machines are more simple than you think, they follow a simple pattern, the &ldquo;instruction cycle&rdquo;,
+      which is: fetch; decode; and execute.
+      First we fetch the next instruction in the instruction list or code, we then decode the instruction and execute
+      the decoded instruction.</p>
 
-<h2>Project Structure</h2>
+    <h2>Project Structure</h2>
 
-<p>Before we start programming, we need to set-up our project. We need a folder where our project will be located, I like to keep my projects under <code>~/dev</code>. Here&rsquo;s how we would set up our project in the terminal. This is assuming you already have a <code>~/dev/</code> directory, but you can <code>cd</code> into anywhere you want your project to be.</p>
+    <p>Before we start programming, we need to set-up our project. We need a folder where our project will be located, I
+      like to keep my projects under <code>~/dev</code>. Here&rsquo;s how we would set up our project in the terminal.
+      This is assuming you already have a <code>~/dev/</code> directory, but you can <code>cd</code> into anywhere you
+      want your project to be.</p>
 
-<pre><code>$ cd ~/dev/
+    <pre><code>$ cd ~/dev/
 $ mkdir mac
 $ cd mac
 $ mkdir src
 </code></pre>
 
-<p>Above we <code>cd</code> into our <code>~/dev</code> directory, or wherever you want your project to be, we make a directory (I&rsquo;m calling this VM &ldquo;mac&rdquo;). We then <code>cd</code> into that directory and make our <code>src</code> directory, which is where our code will be located.</p>
+    <p>Above we <code>cd</code> into our <code>~/dev</code> directory, or wherever you want your project to be, we make
+      a directory (I&rsquo;m calling this VM &ldquo;mac&rdquo;). We then <code>cd</code> into that directory and make
+      our <code>src</code> directory, which is where our code will be located.</p>
 
-<h2>Makefile</h2>
+    <h2>Makefile</h2>
 
-<p>Our makefile is relatively straight-forward, we won&rsquo;t need to separate anything into multiple files, and we won&rsquo;t be including anything so we just need to compile the file with some flags:</p>
+    <p>Our makefile is relatively straight-forward, we won&rsquo;t need to separate anything into multiple files, and we
+      won&rsquo;t be including anything so we just need to compile the file with some flags:</p>
 
-<pre><code class="language-makefile">SRC_FILES = main.c
+    <pre><code class="language-makefile">SRC_FILES = main.c
 CC_FLAGS = -Wall -Wextra -g -std=c11
 CC = clang
 
@@ -100,14 +134,18 @@ all:
     ${CC} ${SRC_FILES} ${CC_FLAGS} -o mac
 </code></pre>
 
-<p>That should suffice for now, you can always improve it later on, but as long as it does the job, we should be fine.</p>
+    <p>That should suffice for now, you can always improve it later on, but as long as it does the job, we should be
+      fine.</p>
 
-<h2>Program Instructions</h2>
+    <h2>Program Instructions</h2>
 
-<p>Now for the Virtual Machines code. First we need to define the instructions for our program. For this, we can just use an <code>enum</code>, since our instructions are basically numbers from 0 - X.
-In fact, an assembler program will take your assembly files and (sort of) translate all of the ops into their number counterparts. For example, if you wrote an assembler for mac, it would translate all <code>MOV</code> ops into the number <code>0</code>, and so on.</p>
+    <p>Now for the Virtual Machines code. First we need to define the instructions for our program. For this, we can
+      just use an <code>enum</code>, since our instructions are basically numbers from 0 - X.
+      In fact, an assembler program will take your assembly files and (sort of) translate all of the ops into their
+      number counterparts. For example, if you wrote an assembler for mac, it would translate all <code>MOV</code> ops
+      into the number <code>0</code>, and so on.</p>
 
-<pre><code class="language-c">typedef enum {
+    <pre><code class="language-c">typedef enum {
     PSH,
     ADD,
     POP,
@@ -116,13 +154,17 @@ In fact, an assembler program will take your assembly files and (sort of) transl
 } InstructionSet;
 </code></pre>
 
-<p>Now we can store a test program as an array. So for a test, we&rsquo;ll write a simple program to add the values <code>5</code> and <code>6</code>, then print them out.</p>
+    <p>Now we can store a test program as an array. So for a test, we&rsquo;ll write a simple program to add the values
+      <code>5</code> and <code>6</code>, then print them out.</p>
 
-<p>Note: When I say print them out, really I&rsquo;ll just make it so that when we call &ldquo;pop&rdquo; our virtual machine will <code>printf</code> the value that we pop. In reality you wouldn&rsquo;t want to do this unless you&rsquo;re debugging or something.</p>
+    <p>Note: When I say print them out, really I&rsquo;ll just make it so that when we call &ldquo;pop&rdquo; our
+      virtual machine will <code>printf</code> the value that we pop. In reality you wouldn&rsquo;t want to do this
+      unless you&rsquo;re debugging or something.</p>
 
-<p>The instructions should be stored as an array, I&rsquo;ll define it somewhere at the top of the document; you could probably throw it in a header file. Here&rsquo;s our test program:</p>
+    <p>The instructions should be stored as an array, I&rsquo;ll define it somewhere at the top of the document; you
+      could probably throw it in a header file. Here&rsquo;s our test program:</p>
 
-<pre><code class="language-c">const int program[] = {
+    <pre><code class="language-c">const int program[] = {
     PSH, 5,
     PSH, 6,
     ADD,
@@ -131,24 +173,34 @@ In fact, an assembler program will take your assembly files and (sort of) transl
 };
 </code></pre>
 
-<p>The above program will push <code>5</code> and <code>6</code> to the stack, execute the add instruction which will pop the two values that are on the stack, add them together and push the result back on the stack. We then pop the result since our pop instruction will print the value (for debugging purposes).</p>
+    <p>The above program will push <code>5</code> and <code>6</code> to the stack, execute the add instruction which
+      will pop the two values that are on the stack, add them together and push the result back on the stack. We then
+      pop the result since our pop instruction will print the value (for debugging purposes).</p>
 
-<p>Finally, the <code>HLT</code> instruction means terminate the program. This is used so that if we had control flow we can terminate the program whenever. Our virtual machine will terminate itself naturally if we had no instructions left, though.</p>
+    <p>Finally, the <code>HLT</code> instruction means terminate the program. This is used so that if we had control
+      flow we can terminate the program whenever. Our virtual machine will terminate itself naturally if we had no
+      instructions left, though.</p>
 
-<p>Now we have to implement the instruction cycle (fetch, decode, execute). Technically we don&rsquo;t really have to decode anything. This will make more sense later.</p>
+    <p>Now we have to implement the instruction cycle (fetch, decode, execute). Technically we don&rsquo;t really have
+      to decode anything. This will make more sense later.</p>
 
-<h2>Fetching the current instruction</h2>
+    <h2>Fetching the current instruction</h2>
 
-<p>Because we have stored our program as an array, it&rsquo;s simple to fetch the current instruction. A virtual machine has a counter, typically called a Program Counter, Instruction Pointer, &hellip; these names are synonymous and your choice is personal preference. Usually they are shortened to PC or IP respectively.</p>
+    <p>Because we have stored our program as an array, it&rsquo;s simple to fetch the current instruction. A virtual
+      machine has a counter, typically called a Program Counter, Instruction Pointer, &hellip; these names are
+      synonymous and your choice is personal preference. Usually they are shortened to PC or IP respectively.</p>
 
-<p>If you remember before, I said that we would store the program counter as a register&hellip; we will do that, but later on. For now, we&rsquo;ll just create a variable at the top of our code called <code>ip</code>, and set that to <code>0</code>:</p>
+    <p>If you remember before, I said that we would store the program counter as a register&hellip; we will do that, but
+      later on. For now, we&rsquo;ll just create a variable at the top of our code called <code>ip</code>, and set that
+      to <code>0</code>:</p>
 
-<pre><code class="language-c">int ip = 0;
+    <pre><code class="language-c">int ip = 0;
 </code></pre>
 
-<p>This <code>ip</code> stands for instruction pointer. The program itself is stored as an array of integers. The <code>ip</code> variable serves as an index in the array as to which instruction is currently being executed.</p>
+    <p>This <code>ip</code> stands for instruction pointer. The program itself is stored as an array of integers. The
+      <code>ip</code> variable serves as an index in the array as to which instruction is currently being executed.</p>
 
-<pre><code class="language-c">int ip = 0;
+    <pre><code class="language-c">int ip = 0;
 
 int main() {
     int instr = program[ip];
@@ -156,25 +208,29 @@ int main() {
 }
 </code></pre>
 
-<p>If we were to printf the <code>instr</code> variable, it should give us <code>PSH</code> (or <code>0</code>). We can write this as a fetch function like so:</p>
+    <p>If we were to printf the <code>instr</code> variable, it should give us <code>PSH</code> (or <code>0</code>). We
+      can write this as a fetch function like so:</p>
 
-<pre><code class="language-c">int fetch() {
+    <pre><code class="language-c">int fetch() {
     return program[ip];
 }
 </code></pre>
 
-<p>This function will return the current instruction when called. So, what if we want the next instruction? We just increment the instruction pointer:</p>
+    <p>This function will return the current instruction when called. So, what if we want the next instruction? We just
+      increment the instruction pointer:</p>
 
-<pre><code class="language-c">int main() {
+    <pre><code class="language-c">int main() {
     int x = fetch(); // PSH
     ip++; // increment instruction pointer
     int y = fetch(); // 5
 }
 </code></pre>
 
-<p>So how do we automate this? Well we know that a program runs until it is halted via the <code>HLT</code> instruction. So we just have an infinite loop that will keep looping until the current instruction is <code>HLT</code>.</p>
+    <p>So how do we automate this? Well we know that a program runs until it is halted via the <code>HLT</code>
+      instruction. So we just have an infinite loop that will keep looping until the current instruction is
+      <code>HLT</code>.</p>
 
-<pre><code class="language-c">#include &lt;stdbool.h&gt; 
+    <pre><code class="language-c">#include &lt;stdbool.h&gt;
 
 bool running = true;
 
@@ -187,15 +243,21 @@ int main() {
 }
 </code></pre>
 
-<p>This will work perfectly fine, but it&rsquo;s kind of messy. What we&rsquo;re doing is looping through each instruction, checking if the value of that instruction is <code>HLT</code>, if it is then stop the loop, otherwise eat the instruction and repeat.</p>
+    <p>This will work perfectly fine, but it&rsquo;s kind of messy. What we&rsquo;re doing is looping through each
+      instruction, checking if the value of that instruction is <code>HLT</code>, if it is then stop the loop, otherwise
+      eat the instruction and repeat.</p>
 
-<h2>Evaluating an instruction</h2>
+    <h2>Evaluating an instruction</h2>
 
-<p>So this is the gist of our Virtual Machine, but we can do better. A virtual machine is so simple that you can write a huge switch statement. In fact, this is usually the best way to do it in terms of speed, as opposed to say a HashMap for all the instructions and some abstract class or interface with an <code>execute</code> method.</p>
+    <p>So this is the gist of our Virtual Machine, but we can do better. A virtual machine is so simple that you can
+      write a huge switch statement. In fact, this is usually the best way to do it in terms of speed, as opposed to say
+      a HashMap for all the instructions and some abstract class or interface with an <code>execute</code> method.</p>
 
-<p>Each case in the switch statement would be an instruction that we defined in our enum. The eval function will take a single parameter, which is the instruction to evaluate. We won&rsquo;t do any of the instruction pointer increments in this function unless we&rsquo;re consuming operands.</p>
+    <p>Each case in the switch statement would be an instruction that we defined in our enum. The eval function will
+      take a single parameter, which is the instruction to evaluate. We won&rsquo;t do any of the instruction pointer
+      increments in this function unless we&rsquo;re consuming operands.</p>
 
-<pre><code class="language-c">void eval(int instr) {
+    <pre><code class="language-c">void eval(int instr) {
     switch (instr) {
     case HLT:
         running = false;
@@ -204,9 +266,9 @@ int main() {
 }
 </code></pre>
 
-<p>Let&rsquo;s add this back into the main loop of the virtual machine:</p>
+    <p>Let&rsquo;s add this back into the main loop of the virtual machine:</p>
 
-<pre><code class="language-c">bool running = true;
+    <pre><code class="language-c">bool running = true;
 int ip = 0;
 
 // instruction enum
@@ -221,15 +283,19 @@ int main() {
 }
 </code></pre>
 
-<h2>The stack!</h2>
+    <h2>The stack!</h2>
 
-<p>Great, that should work perfectly. Now before we add the other instructions, we need a stack. The stack is a very simple data structure. We&rsquo;ll be using an array for this rather than a linked list. Because our stack is a fixed size, we don&rsquo;t have to worry about resizing/copying. And it&rsquo;s probably better in terms of cache efficiency to use an array rather than a linked list!</p>
+    <p>Great, that should work perfectly. Now before we add the other instructions, we need a stack. The stack is a very
+      simple data structure. We&rsquo;ll be using an array for this rather than a linked list. Because our stack is a
+      fixed size, we don&rsquo;t have to worry about resizing/copying. And it&rsquo;s probably better in terms of cache
+      efficiency to use an array rather than a linked list!</p>
 
-<p>Similarly to how we have an <code>ip</code> that indexes the program array, we need a stack pointer (<code>sp</code>) to show where we are in the stack array.</p>
+    <p>Similarly to how we have an <code>ip</code> that indexes the program array, we need a stack pointer
+      (<code>sp</code>) to show where we are in the stack array.</p>
 
-<p>Here&rsquo;s a little visualisation of our stack data structure:</p>
+    <p>Here&rsquo;s a little visualisation of our stack data structure:</p>
 
-<pre><code class="language-c">[] // empty
+    <pre><code class="language-c">[] // empty
 
 PSH 5 // put 5 on **top** of the stack
 [5]
@@ -250,28 +316,29 @@ PSH 5 // etc..
 [6, 5]
 </code></pre>
 
-<p>Let&rsquo;s break down our program in terms of the stack:</p>
+    <p>Let&rsquo;s break down our program in terms of the stack:</p>
 
-<pre><code class="language-c">PSH, 5,
+    <pre><code class="language-c">PSH, 5,
 PSH, 6,
 ADD,
 POP,
 HLT
 </code></pre>
 
-<p>Well first we push 5 to the stack</p>
+    <p>Well first we push 5 to the stack</p>
 
-<pre><code class="language-c">[5]
+    <pre><code class="language-c">[5]
 </code></pre>
 
-<p>Then we push 6:</p>
+    <p>Then we push 6:</p>
 
-<pre><code class="language-c">[5, 6]
+    <pre><code class="language-c">[5, 6]
 </code></pre>
 
-<p>Then the add instruction will basically pop these values and add them together and push the result on the stack:</p>
+    <p>Then the add instruction will basically pop these values and add them together and push the result on the
+      stack:</p>
 
-<pre><code class="language-c">[5, 6]
+    <pre><code class="language-c">[5, 6]
 
 // pop the top value, store it in a variable called a
 a = pop; // a contains 6
@@ -289,11 +356,13 @@ push result // push the result to the stack
 [11] // stack contents
 </code></pre>
 
-<p>Where does our stack pointer come into play? Well the stack pointer or <code>sp</code> is set to <code>-1</code>, this means it&rsquo;s empty. Arrays are zero-indexed in C, so if the sp was <code>0</code> it would be set to whatever random number the C compiler throws in there because the memory for an array is not zeroed out.</p>
+    <p>Where does our stack pointer come into play? Well the stack pointer or <code>sp</code> is set to <code>-1</code>,
+      this means it&rsquo;s empty. Arrays are zero-indexed in C, so if the sp was <code>0</code> it would be set to
+      whatever random number the C compiler throws in there because the memory for an array is not zeroed out.</p>
 
-<p>Now if we push 3 values, the sp would be 2. So here&rsquo;s an array with 3 values:</p>
+    <p>Now if we push 3 values, the sp would be 2. So here&rsquo;s an array with 3 values:</p>
 
-<pre><code>        -&gt; sp -1
+    <pre><code>        -&gt; sp -1
     psh -&gt; sp 0
     psh -&gt; sp 1
     psh -&gt; sp 3
@@ -305,39 +374,46 @@ push result // push the result to the stack
  0  1  2 &lt;- array indices or &quot;addresses&quot;
 </code></pre>
 
-<p>Now when we <strong>pop</strong> a value from the stack, we decrement the stack pointer, so that means that we&rsquo;re popping 9, and the top of the stack will be 5:</p>
+    <p>Now when we <strong>pop</strong> a value from the stack, we decrement the stack pointer, so that means that we&rsquo;re
+      popping 9, and the top of the stack will be 5:</p>
 
-<pre><code>    sp points here (sp = 1)
+    <pre><code>    sp points here (sp = 1)
         |
         V
     [1, 5]
      0  1 &lt;- these are the array indices
 </code></pre>
 
-<p>When we want to see the top of the stack, we look at the value at the current <code>sp</code>. Okay, hopefully you should know how a stack works! If you&rsquo;re still confused, check out <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type">this</a>) article on wikipedia.</p>
+    <p>When we want to see the top of the stack, we look at the value at the current <code>sp</code>. Okay, hopefully
+      you should know how a stack works! If you&rsquo;re still confused, check out <a
+              href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type">this</a>) article on wikipedia.</p>
 
-<p>To implement a stack in C is relatively straight-forward. Along with our <code>ip</code> variable, we should define the <code>sp</code> variable and our array which will be the stack:</p>
+    <p>To implement a stack in C is relatively straight-forward. Along with our <code>ip</code> variable, we should
+      define the <code>sp</code> variable and our array which will be the stack:</p>
 
-<pre><code class="language-c">int ip = 0;
+    <pre><code class="language-c">int ip = 0;
 int sp = -1;
 int stack[256];
 
 ...
 </code></pre>
 
-<p>Now if we want to push a value to the stack, we increment the stack pointer <strong>then</strong> we set the value at the current sp (which we just incremented).</p>
+    <p>Now if we want to push a value to the stack, we increment the stack pointer <strong>then</strong> we set the
+      value at the current sp (which we just incremented).</p>
 
-<p><strong>The order here is very important!</strong> If you set the value first, <em>then</em> you increment the <code>sp</code> you will get some bad behaviour because we&rsquo;re writing to the memory at index <code>-1</code>, not good!</p>
+    <p><strong>The order here is very important!</strong> If you set the value first, <em>then</em> you increment the
+      <code>sp</code> you will get some bad behaviour because we&rsquo;re writing to the memory at index <code>-1</code>,
+      not good!</p>
 
-<pre><code class="language-c">// sp = -1
+    <pre><code class="language-c">// sp = -1
 sp++; // sp = 0
 stack[sp] = 5; // set value at stack[0] -&gt; 5
 // top of stack is now [5]
 </code></pre>
 
-<p>In our <code>eval</code> function, we can add the stack push like this:</p>
+    <p>In our <code>eval</code> function, we can add the stack push like this:</p>
 
-<pre><code class="language-c">void eval(int instr) {
+    <pre><code class="language-c">void eval(int instr) {
     switch (instr) {
         case HLT: {
             running = false;
@@ -352,12 +428,17 @@ stack[sp] = 5; // set value at stack[0] -&gt; 5
 }
 </code></pre>
 
-<p>There are a few differences between the previous eval function. Firstly, there are braces around the case clauses. If you aren&rsquo;t familiar with this trick, it gives the case a scope so you can define variables inside of the clause.</p>
+    <p>There are a few differences between the previous eval function. Firstly, there are braces around the case
+      clauses. If you aren&rsquo;t familiar with this trick, it gives the case a scope so you can define variables
+      inside of the clause.</p>
 
-<p>Secondly, the <code>program[++ip]</code> expression. Why are we doing that here? It&rsquo;s because our <code>PSH</code> instruction has an argument. <code>PSH, 5</code>. Immediately after the <code>PSH</code> op is the value that we want to push to the stack.
-Here we increment the ip so that its pointing to the <code>5</code>, and then we access that value from the program array.</p>
+    <p>Secondly, the <code>program[++ip]</code> expression. Why are we doing that here? It&rsquo;s because our
+      <code>PSH</code> instruction has an argument. <code>PSH, 5</code>. Immediately after the <code>PSH</code> op is
+      the value that we want to push to the stack.
+      Here we increment the ip so that its pointing to the <code>5</code>, and then we access that value from the
+      program array.</p>
 
-<pre><code>program = [ PSH, 5, PSH, 6, ]
+    <pre><code>program = [ PSH, 5, PSH, 6, ]
             0    1  2    3
 
 when pushing:
@@ -367,9 +448,11 @@ sp++, allocate some space on the stack
 stack[sp] = program[ip], put the value 5 on the stack
 </code></pre>
 
-<p>The <code>POP</code> instruction is as simple as decrementing the stack pointer. However, I wanted to make it so that the pop instruction will print the value it just popped. Because of this, we have to do a little bit more work:</p>
+    <p>The <code>POP</code> instruction is as simple as decrementing the stack pointer. However, I wanted to make it so
+      that the pop instruction will print the value it just popped. Because of this, we have to do a little bit more
+      work:</p>
 
-<pre><code class="language-c">case POP: {
+    <pre><code class="language-c">case POP: {
     // store the value at the stack in val_popped THEN decrement the stack ptr
     int val_popped = stack[sp--];
 
@@ -379,9 +462,10 @@ stack[sp] = program[ip], put the value 5 on the stack
 }
 </code></pre>
 
-<p>Finally, the <code>ADD</code> instruction. This one may be a little trickier to get your head around, and this is where we need our scope trick on the case clause because we&rsquo;re introducing some variables.</p>
+    <p>Finally, the <code>ADD</code> instruction. This one may be a little trickier to get your head around, and this is
+      where we need our scope trick on the case clause because we&rsquo;re introducing some variables.</p>
 
-<pre><code class="language-c">case ADD: {
+    <pre><code class="language-c">case ADD: {
     // first we pop the stack and store it as 'a'
     int a = stack[sp--];
 
@@ -398,93 +482,114 @@ stack[sp] = program[ip], put the value 5 on the stack
 }
 </code></pre>
 
-<p>Note that the order here is important for certain operations! If you were implementing divide, you might have some troubles because:</p>
+    <p>Note that the order here is important for certain operations! If you were implementing divide, you might have
+      some troubles because:</p>
 
-<pre><code>5 / 4 != 4 / 5
+    <pre><code>5 / 4 != 4 / 5
 </code></pre>
 
-<p>Stacks are LIFO (last in, first out). Meaning if we pushed 5 then 4, we would pop 4, then pop 5. If we did <code>pop() / pop()</code> this would give us the wrong expression, so it&rsquo;s crucial that you get the order correct.</p>
+    <p>Stacks are LIFO (last in, first out). Meaning if we pushed 5 then 4, we would pop 4, then pop 5. If we did <code>pop()
+      / pop()</code> this would give us the wrong expression, so it&rsquo;s crucial that you get the order correct.</p>
 
-<h2>Registers</h2>
+    <h2>Registers</h2>
 
-<p>Registers are very easy to implement, I mentioned we would have the registers <code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, <code>E</code>, and <code>F</code>. We can use an enum for this like we did the instruction set.</p>
+    <p>Registers are very easy to implement, I mentioned we would have the registers <code>A</code>, <code>B</code>,
+      <code>C</code>, <code>D</code>, <code>E</code>, and <code>F</code>. We can use an enum for this like we did the
+      instruction set.</p>
 
-<pre><code class="language-c">typedef enum {
+    <pre><code class="language-c">typedef enum {
    A, B, C, D, E, F,
    NUM_OF_REGISTERS
 } Registers;
 </code></pre>
 
-<p>The last member in the enum <code>NUM_OF_REGISTERS</code> is a little trick so we can get the size of the registers even if you add more.</p>
+    <p>The last member in the enum <code>NUM_OF_REGISTERS</code> is a little trick so we can get the size of the
+      registers even if you add more.</p>
 
-<p>We&rsquo;ll store our registers in an array. Because we use an enum, A = 0, B = 1, C = 2, etc. So when we want to set the register A, it&rsquo;s as simple as saying <code>register[A] = some_value</code>.</p>
+    <p>We&rsquo;ll store our registers in an array. Because we use an enum, A = 0, B = 1, C = 2, etc. So when we want to
+      set the register A, it&rsquo;s as simple as saying <code>register[A] = some_value</code>.</p>
 
-<pre><code class="language-c">int registers[NUM_OF_REGISTERS];
+    <pre><code class="language-c">int registers[NUM_OF_REGISTERS];
 </code></pre>
 
-<p>Printing out the value in register <code>A</code>:</p>
+    <p>Printing out the value in register <code>A</code>:</p>
 
-<pre><code class="language-c">printf(&quot;%d\n&quot;, registers[A]); // prints the value at the register A
+    <pre><code class="language-c">printf(&quot;%d\n&quot;, registers[A]); // prints the value at the register A
 </code></pre>
 
-<h3>Instruction Pointer</h3>
+    <h3>Instruction Pointer</h3>
 
-<p><strong>What about branching?</strong> I&rsquo;ll leave that to you! Remember an instruction pointer points to the current instruction. Now because this is in the virtual machines source code, your best bet would be to have the instruction pointer as a register that you can read and manipulate from the virtual machines programs.</p>
+    <p><strong>What about branching?</strong> I&rsquo;ll leave that to you! Remember an instruction pointer points to
+      the current instruction. Now because this is in the virtual machines source code, your best bet would be to have
+      the instruction pointer as a register that you can read and manipulate from the virtual machines programs.</p>
 
-<pre><code class="language-c">typedef enum {
+    <pre><code class="language-c">typedef enum {
     A, B, C, D, E, F, PC, SP,
     NUM_OF_REGISTERS
 } Registers;
 </code></pre>
 
-<p>Now we have to port our code to actually use these instruction and stack pointers. A quick and dirty method to do this with the existing code-base is to remove the <code>sp</code> and <code>ip</code> variables at the top and replace them with a define:</p>
+    <p>Now we have to port our code to actually use these instruction and stack pointers. A quick and dirty method to do
+      this with the existing code-base is to remove the <code>sp</code> and <code>ip</code> variables at the top and
+      replace them with a define:</p>
 
-<pre><code class="language-c">#define sp (registers[SP])
+    <pre><code class="language-c">#define sp (registers[SP])
 #define ip (registers[IP])
 </code></pre>
 
-<p>That should be a decent fix so that you don&rsquo;t have to re-write a lot of your code, and it should function perfectly. However, this may not scale very well, and it is aliasing some code so I would suggest not using this method, but for a simple toy virtual machine it will suffice.</p>
+    <p>That should be a decent fix so that you don&rsquo;t have to re-write a lot of your code, and it should function
+      perfectly. However, this may not scale very well, and it is aliasing some code so I would suggest not using this
+      method, but for a simple toy virtual machine it will suffice.</p>
 
-<p>When it comes to branching in our code, I&rsquo;ll give you a hint. With our new <code>IP</code> register, we can branch by writing to this IP a different value. Try this sample below and see what it will do:</p>
+    <p>When it comes to branching in our code, I&rsquo;ll give you a hint. With our new <code>IP</code> register, we can
+      branch by writing to this IP a different value. Try this sample below and see what it will do:</p>
 
-<pre><code>PSH 10
+    <pre><code>PSH 10
 SET IP 0
 </code></pre>
 
-<p>Similar to the BASIC program that a lot of people are familiar with:</p>
+    <p>Similar to the BASIC program that a lot of people are familiar with:</p>
 
-<pre><code>10 PRINT &quot;Hello, World&quot;
+    <pre><code>10 PRINT &quot;Hello, World&quot;
 20 GOTO 10
 </code></pre>
 
-<p>However, since we are pushing values to the stack constantly, we will eventually get a stack overflow once we&rsquo;ve pushed more than the amount of space we&rsquo;ve defined.</p>
+    <p>However, since we are pushing values to the stack constantly, we will eventually get a stack overflow once we&rsquo;ve
+      pushed more than the amount of space we&rsquo;ve defined.</p>
 
-<p>Note that each &lsquo;word&rsquo; is an instruction, so given the following program:</p>
+    <p>Note that each &lsquo;word&rsquo; is an instruction, so given the following program:</p>
 
-<pre><code>              ;  these are the instructions
+    <pre><code>              ;  these are the instructions
 PSH 10        ;  0 1
 PSH 20        ;  2 3
 SET IP 0      ;  4 5 6
 </code></pre>
 
-<p>If we wanted to jump to the second <code>set</code> instruction, we would set the <code>IP</code> register to <code>2</code> instead of <code>0</code>.</p>
+    <p>If we wanted to jump to the second <code>set</code> instruction, we would set the <code>IP</code> register to
+      <code>2</code> instead of <code>0</code>.</p>
 
-<h3>Fin</h3>
+    <h3>Fin</h3>
 
-<p>And there you have it! If you run <code>make</code> in the projects root directory and you can execute the virtual machine: <code>./mac</code>.</p>
+    <p>And there you have it! If you run <code>make</code> in the projects root directory and you can execute the
+      virtual machine: <code>./mac</code>.</p>
 
-<p>You can check out the source code on the github <a href="http://www.github.com/felixangell/mac">here</a>. If you want to see a more developed version of the VM with the <code>MOV</code> and <code>SET</code> instructions then check out the <code>mac-improved</code> directory.
-The source code for the virtual machine we implemented in this article is in <code>mac.c</code></p>
+    <p>You can check out the source code on the github <a href="http://www.github.com/felixangell/mac">here</a>. If you
+      want to see a more developed version of the VM with the <code>MOV</code> and <code>SET</code> instructions then
+      check out the <code>mac-improved</code> directory.
+      The source code for the virtual machine we implemented in this article is in <code>mac.c</code></p>
 
-<h3>Further Reading</h3>
+    <h3>Further Reading</h3>
 
-<p>If you&rsquo;re interested in this topic and want to expand more, there is a lot of resources out there on the internet. Notch wrote a DCPU-16, which is basically a 16 bit virtual machine for the scrapped game 0x10c.</p>
+    <p>If you&rsquo;re interested in this topic and want to expand more, there is a lot of resources out there on the
+      internet. Notch wrote a DCPU-16, which is basically a 16 bit virtual machine for the scrapped game 0x10c.</p>
 
-<p>There are a few implementations of it around GitHub you can check out. You could also look into emulating something like a simple CPU, e.g. a Zilog Z80.
-If you want to write an emulator for something like this, go check out the manual and see if you can implement the instruction set and the registers. There&rsquo;s a few implementations on GitHub if you need any help.</p>
+    <p>There are a few implementations of it around GitHub you can check out. You could also look into emulating
+      something like a simple CPU, e.g. a Zilog Z80.
+      If you want to write an emulator for something like this, go check out the manual and see if you can implement the
+      instruction set and the registers. There&rsquo;s a few implementations on GitHub if you need any help.</p>
 
-<p>If you liked this article, tweet me <a href="http://twitter.com/felix_angell">@felix_angell</a>!
-Thanks for reading!</p>
+    <p>If you liked this article, tweet me <a href="http://twitter.com/felix_angell">@felix_angell</a>!
+      Thanks for reading!</p>
 
   </article>
 </main>
@@ -496,7 +601,7 @@ Thanks for reading!</p>
 </body>
 
 <script>
-    const { hostname } = window.location
+    const {hostname} = window.location
 
     const title = document.querySelector('#websiteLocation')
     title.textContent = hostname || 'felixangell.com'
