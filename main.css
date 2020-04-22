@@ -33,6 +33,10 @@ a {
     color: #444;
 }
 
+pre, code {
+    overflow: scroll;
+}
+
 blockquote {
     background: #f9f9f9;
     border-left: 10px solid #ccc;
