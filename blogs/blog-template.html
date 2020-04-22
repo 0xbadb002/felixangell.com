@@ -34,10 +34,10 @@
     const { hostname } = window.location
 
     const title = document.querySelector('#websiteLocation')
-    title.textContent = hostname
+    title.textContent = hostname || 'felixangell.com'
 
     const link = document.querySelector('#websiteLocationHref')
-    link.setAttribute('href', `https://${hostname}`)
+    link.setAttribute('href', window.location.protocol + '//' + hostname)
 </script>
 
 </html>
