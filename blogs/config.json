@@ -1,5 +1,5 @@
 {
-  "template": "./blog-template.html",
+  "template": "blog-template.html",
   "articles": [
     {
       "source": "./an-introduction-to-llvm-in-go.md",
