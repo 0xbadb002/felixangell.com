@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Felix Angell's personal website</title>
   <link rel="stylesheet" type="text/css" href="fonts.css">
-  <link rel="stylesheet" href="main.css" type="text/css"/>
+  <link rel="stylesheet" href="main.css" type="text/css" />
   <meta name="description" content="The personal website of Felix Angell.">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;">
@@ -13,90 +13,86 @@
 </head>
 
 <body>
-<div class="strip"></div>
+  <div class="strip"></div>
 
-<main>
-  <h1><a id='websiteLocationHref' href=""><span id='websiteLocation'>felixangell.com</span></a></h1>
-  <section>
-    <h2>About Me</h2>
-    <p>
-      Hi 👋 I'm Felix.
-    </p>
-  </section>
-  <section>
-    <h2>Companies</h2>
-    <p>
-    <ul>
-      <li>
-        eBay: 2019 - Current:
-        <ul>
-          <li>Working on the Global Platform for Logistics &amp; Tracking (GPLT) team.</li>
+  <main>
+    <h2><a id='websiteLocationHref' href=""><span id='websiteLocation'>felixangell.com</span></a></h2>
+    <section>
+      <h2>Work</h2>
+      <p>
+        <ul class='companies'>
+          <li>
+            <span class='bold'>eBay</span>: 2019 - Current:
+            <ul>
+              <li>Working on the the global <span class='keyword'>Shipping Team</span>.</li>
+            </ul>
+          </li>
         </ul>
-      </li>
-    </ul>
-    </p>
-  </section>
-  <section>
-    <h2>Projects</h2>
-    <p>
-    <ul>
-      <li><a href='https://github.com/otz1/'>Otzit</a>: a really simple toy meta-search engine</li>
-      <li><a href='https://otzaf.org'>Otzaf</a>: home to a few side-projects</li>
-      <li><a href='https://krug-lang.org'>Krug</a>: a compiled systems programming language with a
-        somewhat experimental architecture
-      </li>
-      <li><a href='https://phi.felixangell.com'>Phi</a>: code editor implemented entirely from the ground
-        up, as in with a graphics framework rather than a GUI library.
-      </li>
-      <li><a href='https://github.com/felixangell/strife'>Strife</a>: a 2d graphics framework in Go
-        &mdash; used to implement the aforementioned code editors
-      </li>
-    </ul>
-    </p>
-  </section>
-  <section>
-    <h2>Articles</h2>
-    <p>
-      I write articles from time to time. Here are
-      my most recent ones:
-    </p>
-    <ul class="article-container">
-      <li><a href="blogs/compilers-brief-and-brisk">A Brief &amp; Brisk Overview of Compiler Architecture</a></li>
-      <li><a href="blogs/an-introduction-to-llvm-in-go">An introduction to LLVM in Go</a></li>
-      <li><a href="blogs/virtual-machine-in-c">Virtual machine in C</a></li>
-    </ul>
-  </section>
-  <section>
-    <h2>Links</h2>
-    <ul>
-      <li><a href="https://github.com/felixangell">GitHub</a></li>
-      <li><a href="https://blog.felixangell.com">Blog</a></li>
-      <li><a href="https://twitter.com/felix_angell">Twitter</a></li>
-      <li><a href="https://www.linkedin.com/in/felix-angell/">LinkedIn</a></li>
-    </ul>
-  </section>
-  <section>
-    <h2>Contact</h2>
-    <p>
-      You can email me at <a href="mailto:mail@felixangell.com">mail&commat;felixangell.com</a>.
-    </p>
-  </section>
-</main>
+      </p>
+    </section>
+    <section>
+      <h2>Projects</h2>
+      <p>
+        <ul>
+          <li><a href='https://github.com/otz1/'>Otzit</a>: a simple toy <span class='keyword'>meta-search engine</span>
+          </li>
+          <li><a href='https://otzaf.org'>Otzaf</a>: home to a few side-projects</li>
+          <li><a href='https://krug-lang.org'>Krug</a>: a compiled <span class='keyword'>systems programming
+              language</span> with a
+            somewhat experimental architecture
+          </li>
+          <li><a href='https://phi.felixangell.com'>Phi</a>: <span class='keyword'>code editor</span> implemented
+            entirely from the ground
+            up, as in with a graphics framework rather than a GUI library.
+          </li>
+          <li><a href='https://github.com/felixangell/strife'>Strife</a>: a <span class='keyword'>2d graphics
+              framework</span> in Go
+            &mdash; used to implement the aforementioned code editors
+          </li>
+        </ul>
+      </p>
+    </section>
+    <section>
+      <h2>Writing</h2>
+      <ul class="article-container">
+        <li><a href="blogs/compilers-brief-and-brisk">A Brief &amp; Brisk Overview of Compiler Architecture</a></li>
+        <li><a href="blogs/an-introduction-to-llvm-in-go">An introduction to LLVM in Go</a></li>
+        <li><a href="blogs/virtual-machine-in-c">Virtual machine in C</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://github.com/felixangell">GitHub</a></li>
+        <li><a href="https://blog.felixangell.com">Blog</a></li>
+        <li><a href="https://twitter.com/felix_angell">Twitter</a></li>
+        <li><a href="https://www.linkedin.com/in/felix-angell/">LinkedIn</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Contact</h2>
+      <p>
+        You can email me at <a href="mailto:mail@felixangell.com">hello&commat;felix.engineer</a>.
+      </p>
+    </section>
+  </main>
 
-<footer>
-  <hr>
-  <p>&copy; 2019 Felix Angell.</p>
-</footer>
+  <footer>
+    <hr>
+    <p>&copy; 2020 Felix Angell.</p>
+  </footer>
 </body>
 
 <script>
-    const {hostname} = window.location
+  const { hostname } = window.location
 
-    const title = document.querySelector('#websiteLocation')
-    title.textContent = hostname || 'felixangell.com'
+  const title = document.querySelector('#websiteLocation')
+  title.textContent = hostname || 'felixangell.com'
 
-    const link = document.querySelector('#websiteLocationHref')
-    link.setAttribute('href', window.location.protocol + '//' + hostname)
+  const link = document.querySelector('#websiteLocationHref')
+  link.setAttribute('href', window.location.protocol + '//' + hostname)
 </script>
+
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
 
 </html>

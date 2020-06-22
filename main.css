@@ -1,62 +1,82 @@
 /* Written by http://bettermotherfuckingwebsite.com/ */
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 *, *:before, *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    margin: 0;
+  font-family: 'Fira Code', monospace;
+  margin: 0;
+  background: #002240;
+  color: #ccc;
 }
 
 .strip {
-    background: #ff7e30;
-    height: 0.5em;
+  background: #002240;
+  height: 0.5em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.websiteMainBanner {
+  padding: 4em 0;
 }
 
 main, footer {
-    margin: 40px auto;
-    max-width: 650px;
-    line-height: 1.6;
-    font-size: 18px;
-    color: #444;
-    padding: 0.5em;
+  margin: 40px auto;
+  max-width: 650px;
+  line-height: 1.6;
+  font-size: 18px;
+  color: #ccc;
+  padding: 0.5em;
 }
 
 h1, h2, h3 {
-    line-height:1.2
+  line-height:1.2;
+  color: #ffee80;
+}
+
+/* company name */
+.companies li span.bold {
+  color: #fd0;
+}
+
+.keyword {
+  color: #fd0;
 }
 
 a {
-    color: #444;
+  color: #9effff;
 }
 
 pre, code {
-    overflow: scroll;
+  overflow: scroll;
 }
 
 blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
 }
 
 blockquote:before {
-    color: #ccc;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4em;
+  color: #ccc;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
 }
 
 blockquote p {
-    display: inline;
+  display: inline;
 }
 
 article img {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
