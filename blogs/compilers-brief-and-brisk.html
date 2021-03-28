@@ -10,13 +10,23 @@
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;">
   <meta name="author" content="Felix Angell">
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-04LPCTKDM1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-04LPCTKDM1');
+  </script>
 </head>
 
 <body>
 <div class="strip"></div>
 
 <main>
-  <h1><a id='websiteLocationHref' href=""><span id='websiteLocation'>felixangell.com</span></a></h1>
+  <h1><a id='websiteLocationHref' href=""><span id='websiteLocation'>felix.engineer</span></a></h1>
   <article>
     <h2>A Brief And Brisk Overview of Compiler Architecture</h2>
     <p>2019-04-25</p>
@@ -539,7 +549,7 @@ A few algorithms for register allocation are: graph colouring, which is as compu
     const { hostname } = window.location
 
     const title = document.querySelector('#websiteLocation')
-    title.textContent = hostname || 'felixangell.com'
+    title.textContent = hostname || 'felix.engineer'
 
     const link = document.querySelector('#websiteLocationHref')
     link.setAttribute('href', window.location.protocol + '//' + hostname)
