@@ -1,6 +1,3 @@
-_**Hacker News Dicussion**
-[Article discussion on Hacker News](https://news.ycombinator.com/item?id=11278551)_
-
 ## Introduction
 LLVM is an infrastructure for creating compilers. It was initially created by Chris Lattner in 2000, and released in 2003. Since then it has evolved into an umbrella project that has a wide array of tools such as the LLVM Linker `lld`, LLVM Debugger `lldb`, and so on.
 
@@ -275,7 +272,6 @@ Now in the go file, make sure you `import "llvm.org/llvm/bindings/go/llvm"`. Onc
 
 Done! I hope you learned new things. And hopefully you can see how this can be used to write a programming language. The next step from here would be to check out the Kaleidoscope tutorial, or experiment and try implement your own thing.
 
-If you liked this article, tweet me [@felix_angell](http://twitter.com/felix_angell)!
 Thanks for reading!
 
 ### Full Code

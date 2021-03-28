@@ -2,7 +2,7 @@ Most compilers out there follow a particular architecture:
 
 ![](https://upload.wikimedia.org/wikipedia/commons/c/cc/Compiler_design.svg)
 
-### Preface
+### Introduction
 In this article I intend to dissect this architecture piece by piece in some detail. 
 
 Consider this article a supplement to the plethora of resources out there on compilers. It exists as a self contained resource to get your toes wet in the world of programming language design and implementation.
@@ -10,10 +10,6 @@ Consider this article a supplement to the plethora of resources out there on com
 The audience for this article is someone who has very limited knowledge as to how a compiler works, i.e. you know that they compile into assembly at most. Though I do presume that the reader has a good understanding of data structures & algorithms. 
 
 It is by no means reflective of modern 'production' compilers with millions of lines of code! But rather a very brief/brisk 'compilers for dummies' resource to get an idea of what goes on in a compiler.
-
-### Introduction
-Currently, I'm working on a programming language called [Krug](https://krug-lang.org), which is a systems programming language that takes a lot of inspiration from Rust and Go. I'll be referencing Krug a few times in this article to compare and help illustrate my points. Krug is still under very heavy development, but you can find it on GitHub under the 'krug-lang' organisation as [caasper](https://github.com/krug-lang/caasper), and [krug](https://github.com/krug-lang/krug).
-The language itself is a bit unusual compared to the typical architecture of compilers, which is partly what inspired me to write this article, though this will be discussed further on in the article.
 
 ### Disclaimer!
 I would like to disclaim that I am by no means an expert in compilers! I don't have a doctorate in Compilers, I did not study this at an academic level in any way - most of what I am sharing is what I have learned in my spare time for fun. In addition, I am not claiming what I write to be the de-facto approach for engineering a compiler, but rather introducing approaches that would be applicable for a small toy compiler.
@@ -249,8 +245,8 @@ And much more.
 
 ## The Middle
 Semantic analysis! Analyzing the semantics of the language is one of the harder parts of compiler design.
-It involves ensuring that the input programs are _correct_. My language Krug is lacking in the semantic analysis aspects currently, and without it the programmer would be trusted to write code that is correct all the time. But in reality this is never the case and we're always writing, compiling, (maybe running), and fixing errors in a loop.
-Not only this, but it can be impossible to compile programs if you can't analyze that the semantics are correct in this analysis phase of the compiler.
+It involves ensuring that the input programs are _correct_. Without semantic analysis the programmer would have to be trusted to write code that is correct all the time - which is impossible!
+Not only this, but it can be extremely difficult to compile a program if you can't analyze that the semantics are correct in this analysis phase of the compiler.
 
 I remember reading a diagram a while ago that showed the percentages of the front, middle, and back ends of a compiler and how they were split up and a while ago it was something along the lines of...
 
@@ -270,8 +266,7 @@ Because of this, semantic analysis is definitely eating up a lot of the focus fo
 
 ### Semantic Passes
 Most compilers will perform a large amount of 'semantic passes' over the AST (or some abstract form to represent the code) during semantic analysis. [This](https://blogs.msdn.microsoft.com/ericlippert/2010/02/04/how-many-passes/) article goes into detail about most of the passes that are performed in the .NET C# compiler (from 2010).
-
-I won't go over every pass that could be implemented, especially since this varies on the language you are implementing for, but below are a few passes that are in my language [Krug](https://krug-lang.org).
+Note: this wont be an exhaustive list of every pass!
 
 ### 'Top Level' Declaration Pass
 The compiler will go over all of the 'top level' declarations in the modules and acknowledge that they exist. It's top level as it doesn't go any further into blocks, it will simply declare what structures, functions, etc. exist in what module.
@@ -279,43 +274,20 @@ The compiler will go over all of the 'top level' declarations in the modules and
 ### Name/Symbol Resolution
 This pass will go through all of the blocks of code in the functions, etc. and resolve them, i.e. find the symbols that they resolve to. This is a common pass, and is usually where the error `No such symbol XYZ` comes from when you compile your Go code.
 
-This can be a very tricky pass to do, especially if you have cyclic dependencies in your dependency graph. Some languages do not allow for cycles, e.g. Go will error if you have packages that form a cycle. As does my language Krug! Cyclic dependencies are considered to be a side effect of poor design.
-
-Cycles can be detected by modifying a DFS on the dependency graph, or you can use [Tarjans Strongly Connected Components algorithm](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm) (like Krug does) to identify (multiple) cycles in a dependency graph.
+This can be a very tricky pass to do, especially if you have cyclic dependencies in your dependency graph. Some languages do not allow for cycles, e.g. Go will error if you have packages that form a cycle. Cyclic dependencies are generally considered to be a side effect of poor architecture in a program.
 
 ### Type Inference
-There is a pass in the compiler that will go through all variables and infer their types. The type inference in Krug is very weak, it is simply inferring the variable based off the value it contains. There is, by no means, a fancy type system like the one you would find in a function language like Haskell.
+This is a pass in which the compiler that will go through all variables and infer their types. Type inference can be done using a process called 'unification', or 'type unification'. Though you can have some very simple implementations for simpler type systems.
 
-Type inference can be done using a process called 'unification', or 'type unification'. Though you can have some very simple implementations for simpler type systems.
-
-Types in Krug are implemented as such:
-
-    interface Type {};
-
-    struct IntegerType : Type {
-        int width;
-        bool signed;
-    };
-
-    struct FloatingType : Type {
-        int width;
-    };
-
-    struct ArrayType : Type {
-        Type base_type;
-        uint64 length;
-    };
-
-And you could have some simple type inference where you would assign expression nodes a type, e.g. an IntegerConstantNode would have the type IntegerType(64). And then you have a function unify(t1, t2) which picks the widest type that can be used for inferring the type of more complex expressions like a BinaryExpression. Then it's a matter of assigning the left hand variable the right hand values inferred type.
-A while back I wrote a simple [type inferrer](https://github.com/felixangell/type-inference) in Go that prototyped how Krugs inference would be implemented.
+An example could be assigning expression nodes a type, e.g. an IntegerConstantNode would have the type IntegerType(64). And then you have some function e.g. unify(t1, t2) which picks the widest type that can be used for inferring the type of more complex expressions. Then it's a matter of assigning the left hand variable the right hand values inferred type.
 
 ### Mutability Pass
-Krug is (like Rust) an immutable by default language, meaning that variables are constant unless specified otherwise:
+Languages like Rust will potentially have a pass to ensure that immutable values are not re-assigned:
 
     let x = 3;
     x = 4; // BAD!
 
-    mut y = 5;
+    let mut y = 5;
     y = 6; // OK!
 
 This pass in the compiler will run through all of the blocks and functions and ensure that they are 'const correct', i.e. we are not mutating anything we shouldn't, and that all values passed to certain functions are constant or mutable where need be.
@@ -363,7 +335,7 @@ I can't speak on the internals of how this all works, but I can tell you that it
 To represent a programs flow, we use Control Flow Graphs (CFG), which contains all the paths that may be traversed during the execution of a program. This is used in semantic analysis to handle dead code elimination, e.g. blocks that wont ever be reached, or functions, or even modules. It can also be used to determinte if a loop wont stop iterating, for example. Or unreachable code, e.g. you call a `panic` or return in a loop and the code outside of the loop doesn't get to execute. [Data Flow Analysis](https://en.wikipedia.org/wiki/Data-flow_analysis) plays a prominent role during the semantic phase of a compiler, and it's worth reading up on the types of analysis you can do, how it works, and what optimisations can come from it.
 
 ## Backend
-![an image of a barren wasteland](https://upload.wikimedia.org/wikipedia/commons/8/85/Hutong_Barren_Wasteland.jpg)
+![a barren wasteland](https://upload.wikimedia.org/wikipedia/commons/8/85/Hutong_Barren_Wasteland.jpg)
 
 The final part in our architecture diagram.
 
@@ -386,9 +358,9 @@ This can be considered the 'easier route', as most of the work is done for you i
 ### Generating Assembly
 Generating code directly for a specific architecture, i.e. machine code or assembly is technically the most common route with countless languages opting for this route.
 
-Go is an example of a modern language that does not take advantage of the LLVM framework (as of writing this). It generates code for a few platforms/architectures: Windows, Linux, and MacOS to name a few. And a fun fact, my language Krug did generate assembly earlier on in the prototype version of the language.
+Go is an example of a modern language that does not take advantage of the LLVM framework (as of writing this). It generates code for a few platforms/architectures.
 
-There are lots of pros and cons to this, though nowadays with technology like LLVM available it's unwise to generate assembly code yourself as it is unlikely a toy compiler that has its own assembly backend would surpass LLVMs level of optimisation for one platform let alone multiple.
+There are lots of pros and cons to this, though with technology like LLVM available it's unwise to generate assembly code yourself as it is unlikely a toy compiler that has its own assembly backend would surpass LLVMs level of optimisation for one platform let alone multiple.
 
 That being said, a considerable benefit of generating assembly yourself is that your compiler will likely be a lot faster than if you were to use a framework like LLVM where it has to build your IR, optimise it, etc. and then eventually write it out as assembly (or whatever target you pick).
 
@@ -453,34 +425,6 @@ There is usually no escape from libc, you should probably read up on this and th
 
 #### Linking
 Writing your own linker is a task of its own. When your compiler generates code, does it generate a machine code of some sort (i.e. into a `.s`/`.asm` file)? Does it write the code directly to an object file? Jonathan Blow's programming language [Jai](https://www.youtube.com/watch?v=TH9VCN6UkyQ) supposedly writes all of the code into a single object file. There are many different approaches to this with varying trade offs.
-
-## Compiler-as-a-Service (CAAS)
-This is where the compiler phases that have been discussed in this post are cut into API routes, which means that a text editor could request to the Krug server to tokenize a file and get back a response of the tokens that it produced. In addition, all of the static analysis routes are exposes, so tooling becomes a breeze.
-
-There are obviously trade offs like latency between sending and receiving files over, as well as a lot of the design of the compiler has to be thought of differently to work in the context of API routes.
-
-Not a lot of production compilers seem to approach compiler creation with this method. One that comes to mind is Microsofts 'Roslyn', though admittedly I do not know a lot about Rosyln, so I'll leave that for you to look into. And, I could be wrong here, but a lot of compilers seem to be implementing this, but they write the API route that hooks into the existing compiler, e.g. Rust has [RLS](https://github.com/rust-lang/rls).
-
-My own language, Krug - which is still under heavy development and is prone to breaking - uses this architecture for its compiler 'Caasper'.
-The compiler itself 'caasper' runs locally on your machine (or on a server if you wanted to), and then the frontends or clients, e.g. 'krug' communicate to and from this compiler service.
-
-One benefit of this is that you can have many frontend implementations, and a single frontend could be bootstrapped into the language itself before re-writing the entire compiler.
-
-The frontend for Krug is implemented in JavaScript, though there will be alternative frontends implemented in Go*, as well as a frontend hopefully written in Krug itself. JavaScript was chosen as it is quite an accessible language and can be downloaded with the very popular package managers yarn/npm.
-
-*The initial frontend was written in Go, and was (unsurprisingly) significantly faster than the JS frontend.
-
-The source code for Caasper - the compiler itself - can be found [here](https://github.com/krug-lang/caasper/) if you wanted to take a look.
-In addition, a prototype of Krug is available on my personal GitHub [here](http://github.com/felixangell/krug/), it's written in D and compiles down to LLVM. And finally, there is a demo of it on my YouTube channel [here](https://www.youtube.com/watch?v=DT6l4T7yzKs).
-
-You can read the (work in progress) Krug tutorial [here](https://github.com/krug-lang/caasper/blob/master/docs/tutorial.md).
-
-# Hello!
-Thanks for making it this far. I hope you enjoyed the article. Feel free to follow me on Twitter [@Felix_Angell](https://twitter.com/Felix_Angell).
-
-I will likely be updating this article as the time passes with more information or edits here and there, and I'll likely Tweet when I do so.
-
-Feel free to shoot me an email at `mail@felixangell.com` with any edits, corrections, or requests for what I should write next!
 
 ## Further Reading
 

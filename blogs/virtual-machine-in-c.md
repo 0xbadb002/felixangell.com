@@ -471,10 +471,9 @@ You can check out the source code on the github [here](http://www.github.com/fel
 The source code for the virtual machine we implemented in this article is in `mac.c`
 
 ### Further Reading
-If you're interested in this topic and want to expand more, there is a lot of resources out there on the internet. Notch wrote a DCPU-16, which is basically a 16 bit virtual machine for the scrapped game 0x10c. 
+If you're interested in this topic and want to expand more, there is a lot of resources out there on the internet. Markus Persson (Notch) wrote a DCPU-16, which is basically a 16 bit virtual machine for the scrapped game 0x10c. 
 
 There are a few implementations of it around GitHub you can check out. You could also look into emulating something like a simple CPU, e.g. a Zilog Z80. 
 If you want to write an emulator for something like this, go check out the manual and see if you can implement the instruction set and the registers. There's a few implementations on GitHub if you need any help.
 
-If you liked this article, tweet me [@felix_angell](http://twitter.com/felix_angell)!
 Thanks for reading!
