@@ -9,12 +9,12 @@ html {
 body {
   font-family: 'Fira Code', monospace;
   margin: 0;
-  background: #002240;
-  color: #ccc;
+  background: #fff;
+  color: #000;
 }
 
 .strip {
-  background: #002240;
+  background: #0088ff;
   height: 0.5em;
 }
 
@@ -30,19 +30,14 @@ main, footer {
   margin: 40px auto;
   max-width: 650px;
   line-height: 1.6;
-  font-size: 18px;
-  color: #ccc;
+  font-size: 12pt;
+  color: #000;
   padding: 0.5em;
 }
 
 h1, h2, h3 {
   line-height:1.2;
-  color: #ffee80;
-}
-
-/* company name */
-.companies li span.bold {
-  color: #fd0;
+  color: #000;
 }
 
 .keyword {
@@ -50,7 +45,7 @@ h1, h2, h3 {
 }
 
 a {
-  color: #9effff;
+  color: #000;
 }
 
 pre, code {

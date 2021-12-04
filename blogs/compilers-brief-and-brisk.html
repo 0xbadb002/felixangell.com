@@ -162,7 +162,7 @@ let parse_tree = parse(tokens);
 </code></pre>
 
 <p>Compilers are usually built up in lots of little components which take inputs and mutate them or convert them into different outputs. Which is partly why functional languages are very good for creating compilers! And also the sweet pattern matching and usually very extensive standard libraries.
-Fun fact: the first implementation of the <a href="https://en.wikipedia.org/wiki/Rust_(programming_language">Rust</a>) compiler was implemented in OCaml.
+Fun fact: the first implementation of the <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a> compiler was implemented in OCaml.
 And a piece of advice is to keep these components as self contained and simple as possible, keeping everything modular simplifies the entire process. I feel as if this philosophy applies to many aspects of software engineering however.</p>
 
 <h3>Trees!</h3>
@@ -328,7 +328,7 @@ Not only this, but it can be extremely difficult to compile a program if you can
 
 <p>With technology like LLVM, most of the work of optimisation can be offloaded onto the framework, already providing a plethora of optimisations out of the box!
 So that leads us with semantic analysis which is a very integral part of the compilation phase.
-For example, a language like <a href="https://en.wikipedia.org/wiki/Rust_(programming_language">Rust</a>) with its ownership memory model, the compiler mostly acts as a big fancy machine that performs all types of static analysis on the input forms. Part of the job is converting the input into a more manageable form to do this analysis.</p>
+For example, a language like <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a> with its ownership memory model, the compiler mostly acts as a big fancy machine that performs all types of static analysis on the input forms. Part of the job is converting the input into a more manageable form to do this analysis.</p>
 
 <p>Because of this, semantic analysis is definitely eating up a lot of the focus for compiler architecture since a lot of the tedious ground work like optimising generated assembly, or readng input into an AST is done for you.</p>
 
@@ -405,7 +405,7 @@ Though the point of this header, is that the type system is something that is en
 
 <h3>Ownership</h3>
 
-<p>Ownership is a concept that is becoming more and more prevalent in the programming world. Ownership and move semantics are principles in the language <a href="https://en.wikipedia.org/wiki/Rust_(programming_language">Rust</a>) &amp;mdash; and hopefully more to come. There are many forms of static analysis performed on Rust code that checks that input conforms to a set of rules with regards to memory: who owns what memory, when the memory dies, and how many references (or borrows) to these values/memory there are.</p>
+<p>Ownership is a concept that is becoming more and more prevalent in the programming world. Ownership and move semantics are principles in the language <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a> &amp;mdash; and hopefully more to come. There are many forms of static analysis performed on Rust code that checks that input conforms to a set of rules with regards to memory: who owns what memory, when the memory dies, and how many references (or borrows) to these values/memory there are.</p>
 
 <p>The beauty of Rust is that this is all enforced at compile time, during the middle of the compiler, so there is no garbage collection or reference counting forced upon the programmer. These semantics are offset to the type system and can be enforced before the program even exists as a compiled binary.</p>
 
@@ -541,7 +541,7 @@ A few algorithms for register allocation are: graph colouring, which is as compu
 
 <footer>
   <hr>
-  <p>&copy; 2019 Felix Angell.</p>
+  <p>&copy; 2021 Felix Angell.</p>
 </footer>
 </body>
 
