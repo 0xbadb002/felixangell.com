@@ -1,68 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Felix Angell's personal website</title>
-  <link rel="stylesheet" type="text/css" href="fonts.css">
-  <link rel="stylesheet" href="main.css" type="text/css" />
-  <meta name="description" content="The personal website of Felix Angell.">
+  <title>Felix Angell</title>
+  <style rel="stylesheet">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <meta name="viewport" content="width=device-width; initial-scale=1.0;">
-  <meta name="author" content="Felix Angell">
+    body {
+      padding: 2em;
+      font-size: 16pt;
+      line-height: 200%;
+      font-family: Helvetica, Arial, sans-serif;
+    }
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-04LPCTKDM1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    ul,
+    ol {
+      margin-left: 1em;
+    }
 
-    gtag('config', 'G-04LPCTKDM1');
-  </script>
+    a {
+      color: #adbeef;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="strip"></div>
-
   <main>
-    <h2>
-      <a id='websiteLocationHref' href=""><span id='websiteLocation'>felix.engineer</span></a>,
-      <a href='https://linkedin.com/in/felix-angell'>LinkedIn</a>,
-      <a href='https://github.com/felixangell'>GitHub</a>
-    </h2>
-    <section>
-      <h2>Hi there 👋</h2>
-      <p>
-        Software engineer with an interest for programming languages, compilers, clean code, and distributed systems. Currently at <a href='https://deliveroo.co.uk/'>Deliveroo</a>. Previously at <a href='https://ebay.co.uk/'>eBay</a>.
-      </p>
-    </section>
-    <section>
-      <h3>Articles</h3>
-      <ul class="article-container">
-        <li><a href="blogs/compilers-brief-and-brisk">A Brief &amp; Brisk Overview of Compiler Architecture</a></li>
-        <li><a href="blogs/an-introduction-to-llvm-in-go">An introduction to LLVM in Go</a></li>
-        <li><a href="blogs/virtual-machine-in-c">Virtual machine in C</a></li>
-      </ul>
-    </section>
+    <h1>Hi, I'm Felix 👋</h1>
+    <p>
+      Software Engineer with a passion for product-minded engineering, distributed systems, developer productivity &amp; tooling, and
+      software architecture.
+    </p>
+    <p>
+    <ul>
+      <li>Currently helping build <a href='https://deliveroo.co.uk'>Deliveroo</a></li>
+      <li>Previously I was at <a href=''>eBay</a></li>
+      <li>
+        <a href='https://linkedin.com/in/felix-angell'>LinkedIn</a>,
+        <a href='https://github.com/felixangell'>GitHub</a>,
+        <a href='https://github.com/felixangell/blog-posts'>Blog Posts</a>
+      </li>
+    </ul>
+    </p>
   </main>
-
   <footer>
-    <hr>
-    <p>&copy; 2022 Felix Angell.</p>
+    <span id='magicalFooterBox'></span>
   </footer>
 </body>
 
 <script>
-  const { hostname } = window.location
-
-  const title = document.querySelector('#websiteLocation')
-  title.textContent = hostname || 'felix.engineer'
-
-  const link = document.querySelector('#websiteLocationHref')
-  link.setAttribute('href', window.location.protocol + '//' + hostname)
+  const DELAY_MS = 500;
+  setInterval(() => {
+    document
+      .querySelector('#magicalFooterBox')
+      .innerHTML += '👨‍💻';
+  }, DELAY_MS)
 </script>
-
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
 
 </html>
