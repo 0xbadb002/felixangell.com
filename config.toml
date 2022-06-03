@@ -4,3 +4,7 @@ title = 'Felix Angell'
 
 [params]
     BookSection = 'blogs'
+
+[module]
+[[module.imports]]
+path = 'github.com/alex-shpak/hugo-book'
