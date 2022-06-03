@@ -1,0 +1,6 @@
+baseURL = 'https://felix.engineer/'
+languageCode = 'en-gb'
+title = 'Felix Angell'
+
+[params]
+    BookSection = 'blogs'
